@@ -1,9 +1,14 @@
 package Business.Interfaces;
 
+import java.util.List;
+
 public interface ICustomerManager {
-    int getId();
-    void setId(int id);
-    String getName();
-    void setName(String name);
+    List<ICustomer> searchCustomerByLastName(String lastName);
+    void addCustomer(ICustomer customer);
+    List<ICustomer> getAllCustomers();
+    List<ICustomer> getBannedCustomers();
+    boolean updateCustomer(ICustomer updatedCustomer);
+    boolean removeCustomerById(ICustomer customer);
+    ICustomer getCustomerById(int id);
 
 }

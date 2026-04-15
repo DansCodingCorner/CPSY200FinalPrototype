@@ -3,7 +3,7 @@ package Business;
 import Business.Interfaces.ICustomer;
 
 public class Customer implements ICustomer {
-    private int id;
+    private int customerId;
     private String firstName;
     private String lastName;
     private String email;
@@ -11,8 +11,8 @@ public class Customer implements ICustomer {
     private double discountRate;
     private boolean isBanned;
 
-    public Customer(int id, String firstName, String lastName, String email, String phoneNumber, boolean isBanned, double discountRate) {
-        this.id = id;
+    public Customer(int customerId, String firstName, String lastName, String email,String phoneNumber, boolean isBanned, double discountRate) {
+        this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -23,12 +23,12 @@ public class Customer implements ICustomer {
 
     @Override
     public int getId() {
-        return id;
+        return customerId;
     }
 
     @Override
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Customer implements ICustomer {
 
     @Override
     public String toString() {
-    return id + " - " + firstName + " " + lastName + " (" + phoneNumber + ")" +
+    return customerId + " - " + firstName + " " + lastName + " (" + phoneNumber + ")" +
            (isBanned ? " [BANNED]" : "");
     }
 
