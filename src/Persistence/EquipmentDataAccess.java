@@ -5,20 +5,38 @@ import java.util.ArrayList;
 
 import Business.Equipment;
 
+/**Author: Daniel caron
+ * Date: April 16 2026
+ * Data access class to interact 
+ * with the equipment.txt class.
+ */
 public class EquipmentDataAccess implements IEquipmentDataAccess
 {
 	
+	//Singleton instance of equipmentDataAccess class
 	static EquipmentDataAccess instance;
 	
+	//File path for equipment.txt file
 	private final String equipmentFilePath = "src/data/equipment.txt";
 	
+	//Internal list of equipment objects
 	private ArrayList<Equipment> equipmentList;
 	
-	public EquipmentDataAccess()
+	
+	/**Private constructor for class
+	 * 
+	 */
+	private EquipmentDataAccess()
 	{
 		this.equipmentList = this.loadEquipmentList();
 	}
 
+	
+	/**@paramArrayList<Equipment>
+	 *@return non
+	 *Method to load data fromt he equipment.txt file. Called at program intialization once
+	 *by equipmentManager.
+	 */
 	@Override
 	public ArrayList<Equipment> loadEquipmentList() 
 	{
@@ -45,6 +63,11 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
 		return equipmentList;
 	}
 
+	
+	/**@param ArrayList<Equipment>
+	 * @return none
+	 *Used to save the changes to the equipment.txt file made by the equipment manager class.
+	 */
 	@Override
 	public void saveEquipmentList(ArrayList<Equipment> equipmentList) 
 	{
@@ -71,6 +94,10 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
 		
 	}
 
+	/**@param none
+	 * @return Singleton instance of EquipmentDataAccess object
+	 * singleton constructor for the equiment data access class
+	 */
 	public  static EquipmentDataAccess getInstance() 
 	{
 		if(instance == null)
@@ -81,16 +108,15 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
 		return instance;
 	}
 	
+	/**@param none
+	 * @return ArrayList<Equipment>
+	 * getter for the internal equipment list
+	 */
 	public ArrayList<Equipment> getEquipmentList()
 	{
 		return this.equipmentList;
 	}
 	
-	public static void main(String[] args)
-	{
-		EquipmentDataAccess ed = EquipmentDataAccess.getInstance();
-		System.out.println(ed.loadEquipmentList());
-		ed.saveEquipmentList(ed.getEquipmentList());
-	}
+
 }
 
