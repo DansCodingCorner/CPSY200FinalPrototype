@@ -2,10 +2,10 @@ package Business;
 
 import Business.Interfaces.ICategory;
 
+
 public class Category implements ICategory {
-}
-public class Category implements ICategory {
-}
+	private int id;
+	private String name;
 
 	public Category(int id, String name) throws NumberFormatException
 	{

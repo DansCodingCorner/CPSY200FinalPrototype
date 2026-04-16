@@ -2,11 +2,11 @@ package Persistence;
 
 import java.util.ArrayList;
 
-import Business.Customer;
+import Business.Interfaces.ICustomer;
 
 public interface ICustomerDataAccess 
 {
-	public  void saveCustomerList(ArrayList<Customer> customerList);
+	public  void saveCustomerList(ArrayList<ICustomer> customerList);
 	
-	public ArrayList<Customer> loadCustomerList();
+	public ArrayList<ICustomer> loadCustomerList();
 }

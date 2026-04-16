@@ -3,7 +3,8 @@ package Persistence;
 import java.io.*;
 import java.util.ArrayList;
 
-import Business.Customer;
+import Business.Interfaces.ICustomer;
+
 
 public class CustomerDataAccess implements ICustomerDataAccess
 {
@@ -12,7 +13,7 @@ public class CustomerDataAccess implements ICustomerDataAccess
 	
 	private final String customerFilePath = "src/data/customers.txt";
 	
-	private ArrayList<Customer> customerList;
+	private ArrayList<ICustomer> customerList;
 	
 	public CustomerDataAccess()
 	{
@@ -20,9 +21,9 @@ public class CustomerDataAccess implements ICustomerDataAccess
 	}
 
 	@Override
-	public ArrayList<Customer> loadCustomerList() 
+	public ArrayList<ICustomer> loadCustomerList() 
 	{
-		ArrayList<Customer> customerList = new ArrayList<>();
+		ArrayList<ICustomer> customerList = new ArrayList<>();
 		
         try (BufferedReader br = new BufferedReader(new FileReader(customerFilePath))) 
         {
@@ -31,7 +32,7 @@ public class CustomerDataAccess implements ICustomerDataAccess
             while ((line = br.readLine()) != null) 
             {
             	String[] lineDeconstrcuted  = line.split(",");
-            	Customer customerToAdd = new Customer (Integer.parseInt(lineDeconstrcuted[0]), lineDeconstrcuted[1], lineDeconstrcuted[2], lineDeconstrcuted[3],lineDeconstrcuted[4],Boolean.parseBoolean(lineDeconstrcuted[5]), Double.parseDouble(lineDeconstrcuted[6]));
+            	ICustomer customerToAdd = new ICustomer (Integer.parseInt(lineDeconstrcuted[0]), lineDeconstrcuted[1], lineDeconstrcuted[2], lineDeconstrcuted[3],lineDeconstrcuted[4],Boolean.parseBoolean(lineDeconstrcuted[5]), Double.parseDouble(lineDeconstrcuted[6]));
             	customerList.add(customerToAdd);
             }
             return customerList;
