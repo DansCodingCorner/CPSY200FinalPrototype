@@ -4,11 +4,9 @@ import Business.Interfaces.ICategory;
 
 
 public class Category implements ICategory {
+	private int id;
+	private String name;
 
-	public int id;
-	
-	public String name;
-	
 	public Category(int id, String name) throws NumberFormatException
 	{
 		try

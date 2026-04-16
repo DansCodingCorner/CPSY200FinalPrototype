@@ -26,7 +26,7 @@ public class RentalDataAccess implements IRentalDataAccess
 	private ArrayList<Rental> rentalList;
 	
 	//File path for the retnals.txt file
-	private final String rentalFilePath = "src/data/customers.txt";
+	private final String rentalFilePath = "src/data/rentals.txt";
 
 	
 	//Private constructor for singleton pattern

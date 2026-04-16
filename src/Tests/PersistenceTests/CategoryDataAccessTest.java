@@ -18,15 +18,6 @@ class CategoryDataAccessTest
 		cda2 = CategoryDataAccess.getInstance();
 		
 		assertEquals(cda1, cda2);
-<<<<<<< HEAD
-	}
-	
-	@Test
-	void testLoadData()
-	{
-		
-=======
->>>>>>> master
 	}
 
 }
