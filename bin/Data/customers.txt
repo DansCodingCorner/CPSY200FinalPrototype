@@ -1,0 +1,1 @@
+1,John,Doe,john.doe@example.com,1234567890,false,0.1

@@ -1,6 +1,6 @@
 package Persistence;
 
-public class EquipmentDataAccess implements IEquipmentDataAccess
-{
+// public class EquipmentDataAccess implements IEquipmentDataAccess
+// {
 
-}
+// }

@@ -1,6 +1,6 @@
 package Persistence;
 
-public class RentalDataAccess implements IRentalDataAccess
-{
+// public class RentalDataAccess implements IRentalDataAccess
+// {
 
-}
+// }
