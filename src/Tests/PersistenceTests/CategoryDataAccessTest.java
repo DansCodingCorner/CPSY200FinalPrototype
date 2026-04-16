@@ -19,5 +19,11 @@ class CategoryDataAccessTest
 		
 		assertEquals(cda1, cda2);
 	}
+	
+	@Test
+	void testLoadData()
+	{
+		
+	}
 
 }

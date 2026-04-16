@@ -1,0 +1,3 @@
+1001,John,Doe,jd@sample.net,(555) 555-1212,false,0.00
+1002,Jane,Smith,js@live.com,(555) 555-3434,false,10.00
+1003,Michael,Lee,ml@sample.net,(555) 555-5656,false,0.00
