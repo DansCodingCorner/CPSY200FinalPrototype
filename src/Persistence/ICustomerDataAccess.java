@@ -1,12 +1,14 @@
 package Persistence;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import Business.Interfaces.ICustomer;
 
 public interface ICustomerDataAccess 
 {
-	public  void saveCustomerList(ArrayList<ICustomer> customerList);
+	public  void saveCustomerList(List<ICustomer> customerList);
 	
-	public ArrayList<ICustomer> loadCustomerList();
+	public List<ICustomer> loadCustomerList();
+
+	public List<ICustomer> getCustomerList();
 }

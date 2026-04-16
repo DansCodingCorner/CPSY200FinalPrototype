@@ -2,7 +2,9 @@ package Persistence;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
+import Business.Customer;
 import Business.Interfaces.ICustomer;
 
 
@@ -13,7 +15,7 @@ public class CustomerDataAccess implements ICustomerDataAccess
 	
 	private final String customerFilePath = "src/data/customers.txt";
 	
-	private ArrayList<ICustomer> customerList;
+	private List<ICustomer> customerList;
 	
 	public CustomerDataAccess()
 	{
@@ -21,9 +23,9 @@ public class CustomerDataAccess implements ICustomerDataAccess
 	}
 
 	@Override
-	public ArrayList<ICustomer> loadCustomerList() 
+	public List<ICustomer> loadCustomerList() 
 	{
-		ArrayList<ICustomer> customerList = new ArrayList<>();
+		List<ICustomer> customerList = new ArrayList<>();
 		
         try (BufferedReader br = new BufferedReader(new FileReader(customerFilePath))) 
         {
@@ -32,7 +34,7 @@ public class CustomerDataAccess implements ICustomerDataAccess
             while ((line = br.readLine()) != null) 
             {
             	String[] lineDeconstrcuted  = line.split(",");
-            	ICustomer customerToAdd = new ICustomer (Integer.parseInt(lineDeconstrcuted[0]), lineDeconstrcuted[1], lineDeconstrcuted[2], lineDeconstrcuted[3],lineDeconstrcuted[4],Boolean.parseBoolean(lineDeconstrcuted[5]), Double.parseDouble(lineDeconstrcuted[6]));
+            	ICustomer customerToAdd = new Customer(Integer.parseInt(lineDeconstrcuted[0]), lineDeconstrcuted[1], lineDeconstrcuted[2], lineDeconstrcuted[3],lineDeconstrcuted[4],Boolean.parseBoolean(lineDeconstrcuted[5]), Double.parseDouble(lineDeconstrcuted[6]));
             	customerList.add(customerToAdd);
             }
             return customerList;
@@ -47,11 +49,11 @@ public class CustomerDataAccess implements ICustomerDataAccess
 	}
 
 	@Override
-	public void saveCustomerList(ArrayList<Customer> customerList) 
+	public void saveCustomerList(List<ICustomer> customerList) 
 	{
-		ArrayList<String> dataToAdd = new ArrayList<>();
+		List<String> dataToAdd = new ArrayList<>();
 		
-		for(Customer customer : customerList)
+		for(ICustomer customer : customerList)
 		{
 			String data = Integer.toString(customer.getId()) + "," + customer.getFirstName() + "," + customer.getLastName() + "," + customer.getEmail() + "," + customer.getPhoneNumber() + "," + customer.isBanned() + "," + customer.getDiscountRate();
 			dataToAdd.add(data);
@@ -59,11 +61,11 @@ public class CustomerDataAccess implements ICustomerDataAccess
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(customerFilePath))) 
         {
-		for(String data : dataToAdd)
-		{
-            writer.write(data);
-            writer.newLine();
-        } 
+			for(String data : dataToAdd)
+			{
+				writer.write(data);
+				writer.newLine();
+			} 
         }
 		catch (IOException e) 
 		{
@@ -82,7 +84,7 @@ public class CustomerDataAccess implements ICustomerDataAccess
 		return instance;
 	}
 	
-	public ArrayList<Customer> getCustomerList()
+	public List<ICustomer> getCustomerList()
 	{
 		return this.customerList;
 	}
