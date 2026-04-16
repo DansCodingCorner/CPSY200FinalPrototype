@@ -2,6 +2,13 @@ package Business;
 
 import Business.Interfaces.ICategory;
 
+<<<<<<< HEAD
+=======
+public class Category implements ICategory {
+}
+public class Category implements ICategory {
+}
+>>>>>>> master
 
 public class Category implements ICategory {
 
