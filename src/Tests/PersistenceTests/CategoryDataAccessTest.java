@@ -4,11 +4,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class CategoryDataAccessTest {
+import Persistence.CategoryDataAccess;
+import Persistence.ICategoryDataAccess;
+
+class CategoryDataAccessTest 
+{
+	ICategoryDataAccess cda1,cda2;
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void TestgetInstance()
+	{
+		cda1 = CategoryDataAccess.getInstance();
+		cda2 = CategoryDataAccess.getInstance();
+		
+		assertEquals(cda1, cda2);
 	}
 
 }
