@@ -2,16 +2,13 @@ package Business;
 
 import Business.Interfaces.ICategory;
 
-<<<<<<< HEAD
-public class Category implements ICategory
-{
-	private int id;
-	
-	private String name;
-=======
-public class Category implements ICategory {
->>>>>>> 0f4d772583bfa25974befb1cd8e60764a978c1d9
 
+public class Category implements ICategory {
+
+	public int id;
+	
+	public String name;
+	
 	public Category(int id, String name) throws NumberFormatException
 	{
 		try
