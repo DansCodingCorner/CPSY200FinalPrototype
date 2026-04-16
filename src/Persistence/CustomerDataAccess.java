@@ -5,20 +5,33 @@ import java.util.ArrayList;
 
 import Business.Customer;
 
+/**Class: CustomerDataAccess
+ * Singleton class for interacting with the Customer.txt file
+ * Can load the data from the file and update
+ * changes to the file
+ */
 public class CustomerDataAccess implements ICustomerDataAccess
 {
-	
+	//Singleton instance for RentalDataAccess class
 	static CustomerDataAccess instance;
 	
+	//File path for customer.txt file
 	private final String customerFilePath = "src/data/customers.txt";
 	
+	//Internal customer list
 	private ArrayList<Customer> customerList;
 	
-	public CustomerDataAccess()
+	//private constructor to be called from getInstance method
+	private CustomerDataAccess()
 	{
 		this.customerList = this.loadCustomerList();
 	}
 
+	/**Method: loadCustoemrList
+	 * @param: none
+	 * @return: ArrayLlst<Customer>: A list of customers generated from the custoemrs.txt file
+	 * This method is called by the customerManager class upon initializaiton to load the customer data from customers.txt file
+	 */
 	@Override
 	public ArrayList<Customer> loadCustomerList() 
 	{
@@ -45,6 +58,12 @@ public class CustomerDataAccess implements ICustomerDataAccess
 		return customerList;
 	}
 
+	/**Method: saveCustomerList
+	 * @param ArrayList<Customer>
+	 *@return void
+	 *Method to save changes to the customers.txt file when provided with the updated
+	 *arrayList fromt he customer manager class
+	 */
 	@Override
 	public void saveCustomerList(ArrayList<Customer> customerList) 
 	{
@@ -71,6 +90,11 @@ public class CustomerDataAccess implements ICustomerDataAccess
 		
 	}
 
+	/**CustomerDataAccess.getInstance
+	 * @param none
+	 * @return singleton isntance of customerDataAccess
+	 * Singleton consstructor for the custoemrDataAccessclass
+	 */
 	public  static CustomerDataAccess getInstance() 
 	{
 		if(instance == null)
@@ -81,6 +105,11 @@ public class CustomerDataAccess implements ICustomerDataAccess
 		return instance;
 	}
 	
+	/**Method:getCustoemrList
+	 * @param none
+	 * @return ArrayList<Customer>
+	 * Getter for the internal customer list
+	 */
 	public ArrayList<Customer> getCustomerList()
 	{
 		return this.customerList;
