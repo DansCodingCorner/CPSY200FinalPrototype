@@ -32,8 +32,6 @@ public class RentalDataAccess implements IRentalDataAccess
 	private final String rentalFilePath = "src/data/rentals.txt";
 
 	
-
-	
 	//Private constructor for singleton pattern
 	private RentalDataAccess()
 	{
