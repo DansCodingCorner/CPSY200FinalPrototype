@@ -3,8 +3,11 @@ package Persistence;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import Business.Rental;
+import Business.Interfaces.IRental;
+
 
 /**RentalDataaccess class used to interact
  * with the rentals.txt file.
@@ -23,7 +26,7 @@ public class RentalDataAccess implements IRentalDataAccess
 	static RentalDataAccess instance = null;
 	
 	//Inetrnal array of rental objects for the getter method
-	private ArrayList<Rental> rentalList;
+	private List<IRental> rentalList;
 	
 	//File path for the retnals.txt file
 	private final String rentalFilePath = "src/data/rentals.txt";
@@ -38,15 +41,15 @@ public class RentalDataAccess implements IRentalDataAccess
 	
 	/**Method: loadRentalsList
 	 * @Params: None
-	 * @Returns: ArrayList<Rental>
+	 * @Returns: ArrayList<IRental>
 	 *Method to load data fromt he rentals.txt file.
 	 *Called upon program initalization by the rental manager class
 	 */
 	@Override
-	public ArrayList<Rental> loadRentalList() 
+	public List<IRental> loadRentalList() 
 	{
 		
-		ArrayList<Rental> rentalList = new ArrayList<>();
+		List<IRental> rentalList = new ArrayList<>();
 		
         try (BufferedReader br = new BufferedReader(new FileReader(rentalFilePath))) 
         {
@@ -54,10 +57,27 @@ public class RentalDataAccess implements IRentalDataAccess
             
             while ((line = br.readLine()) != null) 
             {
-            	String[] lineDeconstrcuted  = line.split(",");
-            	Rental RentalToAdd = new Rental (Integer.parseInt(lineDeconstrcuted[0]), LocalDate.parse(lineDeconstrcuted[1]), Integer.parseInt(lineDeconstrcuted[2]), Integer.parseInt(lineDeconstrcuted[3]), LocalDate.parse(lineDeconstrcuted[4]), LocalDate.parse(lineDeconstrcuted[5]), Double.parseDouble(lineDeconstrcuted[6]));
-            	rentalList.add(RentalToAdd);
+            	String[] lineDeconstructed  = line.split(",");
+				if (lineDeconstructed.length != 7) {
+					System.out.println("Invalid line format in rentals.txt: " + line);
+					continue;
+				}
+            	try {
+            		IRental rentalToAdd = new Rental(
+						Integer.parseInt(lineDeconstructed[0]), 
+						LocalDate.parse(lineDeconstructed[1]), 
+						Integer.parseInt(lineDeconstructed[2]), 
+						Integer.parseInt(lineDeconstructed[3]), 
+						LocalDate.parse(lineDeconstructed[4]), 
+						LocalDate.parse(lineDeconstructed[5]), 
+						Double.parseDouble(lineDeconstructed[6]));
+            		rentalList.add(rentalToAdd);
+            	} catch (Exception e) {
+            		System.out.println("Error parsing line in rentals.txt: " + line);
+            		e.printStackTrace();
+            	}
             }
+			this.rentalList = rentalList;
             return rentalList;
         } 
         
@@ -65,26 +85,27 @@ public class RentalDataAccess implements IRentalDataAccess
         {
             e.printStackTrace();
         }
+		this.rentalList = rentalList;
         System.out.println("rentals.txt file is empty");
 		return rentalList;
 	}
 
 
 	/**Method: saveRentalList
-	 *@Params: ArrayList<Rental>
-	 *@Reutnrs: Void
+	 *@Params: List<IRental>
+	 *@Returns: Void
 	 *Method to save changes to the rentals.txt file.
 	 *Intended to be called fromt the rental
 	 *manager class to update any changes made to the rentaal
 	 *list
 	 */
 	@Override
-	public void saveRentalList(ArrayList<Rental> rentalList) 
+	public void saveRentalList(List<IRental> rentalList) 
 	{
 		
-		ArrayList<String> dataToAdd = new ArrayList<>();
+		List<String> dataToAdd = new ArrayList<>();
 		
-		for(Rental rental : rentalList)
+		for(IRental rental : rentalList)
 		{
 			String data = Integer.toString(rental.getId()) + "," + rental.getCurrentDate() + "," + rental.getCustomerId() + "," + rental.getEquipmentId() + "," + rental.getRentalDate() + "," + rental.getReturnDate() + "," + rental.getCost();
 			dataToAdd.add(data);
@@ -129,10 +150,14 @@ public class RentalDataAccess implements IRentalDataAccess
 	 * Getter for the internal rental list stored by the 
 	 * Rental Data Access class
 	 */
-	public ArrayList<Rental> getRentalList()
+	public List<IRental> getRentalList()
 	{
 		
 		return this.rentalList;
+	}
+
+	public void setRentalList(List<IRental> rentalList) {
+		this.rentalList = rentalList;
 	}
 
 }

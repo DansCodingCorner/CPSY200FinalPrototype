@@ -2,7 +2,9 @@ package Business;
 
 import java.time.LocalDate;
 
-public class Rental 
+import Business.Interfaces.IRental;
+
+public class Rental implements IRental
 {
 	private int id;
 	private LocalDate currentDate;
@@ -14,6 +16,17 @@ public class Rental
 	
 	public Rental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double cost)
 	{
+		if (rentalDate.isAfter(returnDate)) {
+			throw new IllegalArgumentException("Rental date cannot be after return date.");
+		}
+
+		if (id < 0 || customerId < 0 || equipmentId < 0 || cost < 0) {
+			throw new IllegalArgumentException("ID, customer ID, equipment ID, and cost must be non-negative.");
+		}
+
+		if (currentDate == null || rentalDate == null || returnDate == null) {
+			throw new IllegalArgumentException("Current date, rental date, and return date cannot be null.");
+		}
 		this.id = id;
 		this.currentDate = currentDate;
 		this.customerId = customerId;
@@ -28,6 +41,9 @@ public class Rental
 	}
 
 	public void setId(int id) {
+		if (id < 0) {
+			throw new IllegalArgumentException("ID must be non-negative.");
+		}
 		this.id = id;
 	}
 
@@ -36,6 +52,9 @@ public class Rental
 	}
 
 	public void setCurrentDate(LocalDate currentDate) {
+		if (currentDate == null) {
+			throw new IllegalArgumentException("Current date cannot be null.");
+		}
 		this.currentDate = currentDate;
 	}
 
@@ -60,6 +79,9 @@ public class Rental
 	}
 
 	public void setRentalDate(LocalDate rentalDate) {
+		if (rentalDate.isAfter(this.returnDate)) {
+			throw new IllegalArgumentException("Rental date cannot be after return date.");
+		}
 		this.rentalDate = rentalDate;
 	}
 
@@ -68,6 +90,9 @@ public class Rental
 	}
 
 	public void setReturnDate(LocalDate returnDate) {
+		if (returnDate.isBefore(this.rentalDate)) {
+			throw new IllegalArgumentException("Return date cannot be before rental date.");
+		}
 		this.returnDate = returnDate;
 	}
 
@@ -79,6 +104,21 @@ public class Rental
 		this.cost = cost;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Rental [id=" + id + ", currentDate=" + currentDate + ", customerId=" + customerId + ", equipmentId="
+				+ equipmentId + ", rentalDate=" + rentalDate + ", returnDate=" + returnDate + ", cost=" + cost
+				+ "]";
+	}
+
+	@Override
+	public void setRentalDate(String rentalDate) {
+		this.rentalDate = LocalDate.parse(rentalDate);
+	}
+
+	@Override
+	public void setReturnDate(String returnDate) {
+		this.returnDate = LocalDate.parse(returnDate);
+	}
 
 }

@@ -1,5 +1,7 @@
 package Business.Interfaces;
 
+import java.time.LocalDate;
+
 public interface IRental {
     int getId();
     void setId(int id);
@@ -7,8 +9,11 @@ public interface IRental {
     void setCustomerId(int customerId);
     int getEquipmentId();
     void setEquipmentId(int equipmentId);
-    String getRentalDate();
+    LocalDate getRentalDate();
     void setRentalDate(String rentalDate);
-    String getReturnDate();
+    LocalDate getReturnDate();
     void setReturnDate(String returnDate);
+    LocalDate getCurrentDate();
+    double getCost();
+    void setCost(double cost);
 }
