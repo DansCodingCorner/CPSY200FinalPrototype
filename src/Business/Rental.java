@@ -16,9 +16,6 @@ public class Rental implements IRental
 	
 	public Rental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double cost)
 	{
-		if (rentalDate.isAfter(returnDate)) {
-			throw new IllegalArgumentException("Rental date cannot be after return date.");
-		}
 
 		if (id < 0 || customerId < 0 || equipmentId < 0 || cost < 0) {
 			throw new IllegalArgumentException("ID, customer ID, equipment ID, and cost must be non-negative.");
@@ -26,6 +23,10 @@ public class Rental implements IRental
 
 		if (currentDate == null || rentalDate == null || returnDate == null) {
 			throw new IllegalArgumentException("Current date, rental date, and return date cannot be null.");
+		}
+
+		if (rentalDate.isAfter(returnDate)) {
+			throw new IllegalArgumentException("Rental date cannot be after return date.");
 		}
 		this.id = id;
 		this.currentDate = currentDate;
@@ -35,6 +36,7 @@ public class Rental implements IRental
 		this.returnDate = returnDate;
 		this.cost = cost;
 	}
+
 
 	public int getId() {
 		return id;
@@ -63,6 +65,9 @@ public class Rental implements IRental
 	}
 
 	public void setCustomerId(int customerId) {
+		if (customerId < 0) {
+			throw new IllegalArgumentException("Customer ID must be non-negative.");
+		}
 		this.customerId = customerId;
 	}
 
@@ -71,6 +76,9 @@ public class Rental implements IRental
 	}
 
 	public void setEquipmentId(int equipmentId) {
+		if (equipmentId < 0) {
+			throw new IllegalArgumentException("Equipment ID must be non-negative.");
+		}
 		this.equipmentId = equipmentId;
 	}
 
@@ -79,7 +87,10 @@ public class Rental implements IRental
 	}
 
 	public void setRentalDate(LocalDate rentalDate) {
-		if (rentalDate.isAfter(this.returnDate)) {
+		if (rentalDate == null) {
+			throw new IllegalArgumentException("Rental date cannot be null.");
+		}
+		if (returnDate != null && rentalDate.isAfter(this.returnDate)) {
 			throw new IllegalArgumentException("Rental date cannot be after return date.");
 		}
 		this.rentalDate = rentalDate;
@@ -90,7 +101,10 @@ public class Rental implements IRental
 	}
 
 	public void setReturnDate(LocalDate returnDate) {
-		if (returnDate.isBefore(this.rentalDate)) {
+		if (returnDate == null) {
+			throw new IllegalArgumentException("Return date cannot be null.");
+		}
+		if (rentalDate != null && returnDate.isBefore(this.rentalDate)) {
 			throw new IllegalArgumentException("Return date cannot be before rental date.");
 		}
 		this.returnDate = returnDate;
@@ -101,6 +115,9 @@ public class Rental implements IRental
 	}
 
 	public void setCost(double cost) {
+		if (cost < 0) {
+			throw new IllegalArgumentException("Cost must be non-negative.");
+		}
 		this.cost = cost;
 	}
 	
@@ -113,12 +130,12 @@ public class Rental implements IRental
 
 	@Override
 	public void setRentalDate(String rentalDate) {
-		this.rentalDate = LocalDate.parse(rentalDate);
+		setRentalDate(LocalDate.parse(rentalDate));
 	}
 
 	@Override
 	public void setReturnDate(String returnDate) {
-		this.returnDate = LocalDate.parse(returnDate);
+		setReturnDate(LocalDate.parse(returnDate));
 	}
 
 }
