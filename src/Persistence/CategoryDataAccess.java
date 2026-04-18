@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import Business.Category;
+import Business.Interfaces.ICategory;
 
 public class CategoryDataAccess implements ICategoryDataAccess
 {
@@ -25,7 +26,7 @@ public class CategoryDataAccess implements ICategoryDataAccess
 	private final String categoryFilePath = "src/data/categories.txt";
 	
 	//Internal category list for the getter method
-	private ArrayList<Category> categoryList;
+	private List<ICategory> categoryList;
 	
 	/**
 	 * Constructor for CategoryDataAcess
@@ -46,10 +47,10 @@ public class CategoryDataAccess implements ICategoryDataAccess
 	 *by the CategoryManager Class
 	 */
 	@Override
-	public ArrayList<Category> loadCategories() 
+	public List<ICategory> loadCategories() 
 	{
 		
-		ArrayList<Category> categoryList = new ArrayList<>();
+		List<ICategory> categoryList = new ArrayList<>();
 		
         try (BufferedReader br = new BufferedReader(new FileReader(categoryFilePath))) 
         {
@@ -83,11 +84,11 @@ public class CategoryDataAccess implements ICategoryDataAccess
 	 *Called when initializing the program.
 	 */
 	@Override
-	public void saveCateogoryList(ArrayList<Category> categoryList) 
+	public void saveCateogoryList(List<ICategory> categoryList) 
 	{
-		ArrayList<String> dataToAdd = new ArrayList<>();
+		List<String> dataToAdd = new ArrayList<>();
 		
-		for(Category category : categoryList)
+		for(ICategory category : categoryList)
 		{
 			String data = Integer.toString(category.getId()) + "," + category.getName();
 			dataToAdd.add(data);
@@ -136,7 +137,7 @@ public class CategoryDataAccess implements ICategoryDataAccess
 	 *Returns the categoryList stored within the categoryDataAcess
 	 *instance
 	 */
-	public ArrayList<Category> getCategoryList()
+	public List<ICategory> getCategoryList()
 	{
 		return this.categoryList;
 	}

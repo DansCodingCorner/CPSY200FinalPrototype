@@ -36,6 +36,9 @@ public class Category implements ICategory {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+
 	
 	
 }
