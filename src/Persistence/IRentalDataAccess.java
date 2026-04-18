@@ -1,9 +1,9 @@
 package Persistence;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-import Business.Rental;
+
 import Business.Interfaces.IRental;
 
 public interface IRentalDataAccess 

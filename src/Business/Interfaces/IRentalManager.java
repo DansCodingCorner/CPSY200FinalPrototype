@@ -1,4 +1,5 @@
 package Business.Interfaces;
+import java.time.LocalDate;
 
 public interface IRentalManager {
     void addRental(IRental rental);
@@ -12,4 +13,6 @@ public interface IRentalManager {
     void deleteRentalsByCustomerId(int customerId);
     void deleteRentalsByEquipmentId(int equipmentId);
     void deleteAllRentals();
+    double calculateCost(LocalDate rentalDate, LocalDate returnDate, double dailyRate);
+    void createRental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double dailyRate);
 }
