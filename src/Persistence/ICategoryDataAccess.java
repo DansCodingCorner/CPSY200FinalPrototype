@@ -1,14 +1,13 @@
 package Persistence;
 
-import java.util.ArrayList;
-
-import Business.Category;
+import java.util.List;
+import Business.Interfaces.ICategory;
 
 public interface ICategoryDataAccess 
 {
 
-	ArrayList<Category> loadCategories();
+	List<ICategory> loadCategories();
 	
-	void saveCateogoryList(ArrayList<Category> categoryList);
+	void saveCateogoryList(List<ICategory> categoryList);
 	
 }
