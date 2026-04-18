@@ -15,6 +15,7 @@ import java.time.temporal.ChronoUnit;
 public class RentalManager implements IRentalManager{
     
     private IRentalDataAccess rentalDataAccess;
+    private int nextRentalId = 1;
 
     public RentalManager(IRentalDataAccess rentalDataAccess) {
         this.rentalDataAccess = rentalDataAccess;
@@ -133,7 +134,27 @@ public class RentalManager implements IRentalManager{
     @Override
     public void createRental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double dailyRate) {
         double cost = calculateCost(rentalDate, returnDate, dailyRate);
-        IRental rental = new Rental(id, currentDate, customerId, equipmentId, rentalDate, returnDate, cost);
+        IRental rental = new Rental(id, currentDate, customerId, equipmentId, rentalDate, returnDate, cost, false);
         addRental(rental);
     }
-}
+
+    @Override
+    public double getOutstandingFeesByCustomerId(int customerId) {
+        double totalFees = 0.0;
+        LocalDate currentDate = LocalDate.now();
+
+        for (IRental rental : getRentalsByCustomerId(customerId)) {
+            if (rental.getReturnDate().isBefore(currentDate)) {
+                long daysOverdue = ChronoUnit.DAYS.between(rental.getReturnDate(), currentDate);
+                totalFees += daysOverdue * 5.0; // Assuming a flat fee of $5 per day overdue
+            }
+        }
+        return totalFees;
+    }
+
+    @Override
+    public int createRentalId() {
+        return nextRentalId++;
+    }
+
+}    
