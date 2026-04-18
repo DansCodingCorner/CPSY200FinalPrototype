@@ -15,4 +15,7 @@ public interface IRentalManager {
     void deleteAllRentals();
     double calculateCost(LocalDate rentalDate, LocalDate returnDate, double dailyRate);
     void createRental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double dailyRate);
+    double getOutstandingFeesByCustomerId(int customerId);
+    int createRentalId();
+    
 }

@@ -16,4 +16,6 @@ public interface IRental {
     LocalDate getCurrentDate();
     double getCost();
     void setCost(double cost);
+    boolean isReturned();
+    void setReturned(boolean isReturned);
 }

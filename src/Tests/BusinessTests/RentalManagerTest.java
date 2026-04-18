@@ -27,7 +27,7 @@ class RentalManagerTest {
 
 	@Test
 	void testAddAndGetRental() {
-		IRental rental = new Rental(1, LocalDate.now(), 1, 1, LocalDate.now(), LocalDate.now().plusDays(7), 100.0);
+		IRental rental = new Rental(1, LocalDate.now(), 1, 1, LocalDate.now(), LocalDate.now().plusDays(7), 100.0, false);
 		rentalManager.addRental(rental);
 		IRental retrievedRental = rentalManager.getRentalById(1);
 		assertNotNull(retrievedRental);
@@ -39,7 +39,7 @@ class RentalManagerTest {
 
 	@Test
 	void testUpdateRental() {
-		IRental rental = new Rental(2, LocalDate.now(), 2, 2, LocalDate.now(), LocalDate.now().plusDays(7), 150.0);
+		IRental rental = new Rental(2, LocalDate.now(), 2, 2, LocalDate.now(), LocalDate.now().plusDays(7), 150.0, false);
 		rentalManager.addRental(rental);
 		rental.setCost(200.0);
 		rentalManager.updateRental(rental);
@@ -50,7 +50,7 @@ class RentalManagerTest {
 
 	@Test
 	void testDeleteRental() {
-		IRental rental = new Rental(3, LocalDate.now(), 3, 3, LocalDate.now(), LocalDate.now().plusDays(7), 200.0);
+		IRental rental = new Rental(3, LocalDate.now(), 3, 3, LocalDate.now(), LocalDate.now().plusDays(7), 200.0, false);
 		rentalManager.addRental(rental);
 		rentalManager.deleteRentalById(3);
 		IRental deletedRental = rentalManager.getRentalById(3);
@@ -59,8 +59,8 @@ class RentalManagerTest {
 
 	@Test
 	void testGetRentalsByCustomerId() {
-		IRental rental1 = new Rental(4, LocalDate.now(), 4, 4, LocalDate.now(), LocalDate.now().plusDays(7), 250.0);
-		IRental rental2 = new Rental(5, LocalDate.now(), 4, 5, LocalDate.now(), LocalDate.now().plusDays(7), 300.0);
+		IRental rental1 = new Rental(4, LocalDate.now(), 4, 4, LocalDate.now(), LocalDate.now().plusDays(7), 250.0, false);
+		IRental rental2 = new Rental(5, LocalDate.now(), 4, 5, LocalDate.now(), LocalDate.now().plusDays(7), 300.0, false);
 		rentalManager.addRental(rental1);
 		rentalManager.addRental(rental2);
 		List<IRental> rentalsByCustomer = rentalManager.getRentalsByCustomerId(4);
@@ -71,8 +71,8 @@ class RentalManagerTest {
 
 	@Test
 	void testGetRentalsByEquipmentId() {
-		IRental rental1 = new Rental(6, LocalDate.now(), 5, 6, LocalDate.now(), LocalDate.now().plusDays(7), 350.0);
-		IRental rental2 = new Rental(7, LocalDate.now(), 6, 6, LocalDate.now(), LocalDate.now().plusDays(7), 400.0);
+		IRental rental1 = new Rental(6, LocalDate.now(), 5, 6, LocalDate.now(), LocalDate.now().plusDays(7), 350.0, false);
+		IRental rental2 = new Rental(7, LocalDate.now(), 6, 6, LocalDate.now(), LocalDate.now().plusDays(7), 400.0, false);
 		rentalManager.addRental(rental1);
 		rentalManager.addRental(rental2);
 		List<IRental> rentalsByEquipment = rentalManager.getRentalsByEquipmentId(6);
@@ -81,8 +81,8 @@ class RentalManagerTest {
 
 	@Test
 	void testDeleteAllRentals() {
-		IRental rental1 = new Rental(8, LocalDate.now(), 7, 8, LocalDate.now(), LocalDate.now().plusDays(7), 450.0);
-		IRental rental2 = new Rental(9, LocalDate.now(), 8, 9, LocalDate.now(), LocalDate.now().plusDays(7), 500.0);
+		IRental rental1 = new Rental(8, LocalDate.now(), 7, 8, LocalDate.now(), LocalDate.now().plusDays(7), 450.0, false);
+		IRental rental2 = new Rental(9, LocalDate.now(), 8, 9, LocalDate.now(), LocalDate.now().plusDays(7), 500.0, false);
 		rentalManager.addRental(rental1);
 		rentalManager.addRental(rental2);
 		rentalManager.deleteAllRentals();
@@ -92,8 +92,8 @@ class RentalManagerTest {
 
 	@Test
 	void testDeleteRentalsByCustomerId() {
-		IRental rental1 = new Rental(10, LocalDate.now(), 9, 10, LocalDate.now(), LocalDate.now().plusDays(7), 550.0);
-		IRental rental2 = new Rental(11, LocalDate.now(), 9, 11, LocalDate.now(), LocalDate.now().plusDays(7), 600.0);
+		IRental rental1 = new Rental(10, LocalDate.now(), 9, 10, LocalDate.now(), LocalDate.now().plusDays(7), 550.0, false);
+		IRental rental2 = new Rental(11, LocalDate.now(), 9, 11, LocalDate.now(), LocalDate.now().plusDays(7), 600.0, false);
 		rentalManager.addRental(rental1);
 		rentalManager.addRental(rental2);
 		rentalManager.deleteRentalsByCustomerId(9);
@@ -114,7 +114,7 @@ class RentalManagerTest {
 
 	@Test
 	void testPersistenceAfterAdd() {
-		IRental rental = new Rental(12, LocalDate.now(), 10, 12, LocalDate.now(), LocalDate.now().plusDays(7), 650.0);
+		IRental rental = new Rental(12, LocalDate.now(), 10, 12, LocalDate.now(), LocalDate.now().plusDays(7), 650.0, false);
 		rentalManager.addRental(rental);
 		RentalDataAccess dataAccess = RentalDataAccess.getInstance();
 		List<IRental> rentalsFromFile = dataAccess.getRentalList();
