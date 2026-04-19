@@ -69,4 +69,7 @@ public final class Equipment {
     {
     	this.price = newPrice;
     }
+
+	public int getEquipmentId() {
+		return this.id;
 }
