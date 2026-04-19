@@ -47,14 +47,21 @@ public class CustomerManager implements ICustomerManager {
             }
         }
 
+        if (bannedCustomers.isEmpty()) {
+            System.out.println("No banned customers found.");
+        }
+
         return bannedCustomers;
     }
 
     @Override
     public void addCustomer(ICustomer customer) {
-        customerDataAccess.getCustomerList().add(customer);
-        customerDataAccess.saveCustomerList(customerDataAccess.getCustomerList());
-    }
+            
+            customerDataAccess.getCustomerList().add(customer);
+            customerDataAccess.saveCustomerList(customerDataAccess.getCustomerList());
+            System.out.println("Customer " + customer.getFirstName() + " " + customer.getLastName() + " added successfully!");
+        }
+        
 
     @Override
     public List<ICustomer> getAllCustomers() {
@@ -68,6 +75,7 @@ public class CustomerManager implements ICustomerManager {
             if (customers.get(i).getId() == updatedCustomer.getId()) {
                 customers.set(i, updatedCustomer);
                 customerDataAccess.saveCustomerList(customers);
+                System.out.println("Customer " + updatedCustomer.getFirstName() + " " + updatedCustomer.getLastName() + " updated successfully!");
                 return true;
             }
         }
@@ -82,6 +90,7 @@ public class CustomerManager implements ICustomerManager {
 
         if (removed) {
             customerDataAccess.saveCustomerList(customers);
+                System.out.println("Customer " + customer.getFirstName() + " " + customer.getLastName() + " removed successfully!");
         }
 
         return removed;
@@ -95,6 +104,7 @@ public class CustomerManager implements ICustomerManager {
             if (customer.getId() == id) {
                 customer.setBanned(true);
                 customerDataAccess.saveCustomerList(customers);
+                System.out.println("Customer " + customer.getFirstName() + " " + customer.getLastName() + " has been banned.");
                 return;
             }
         }
@@ -108,9 +118,23 @@ public class CustomerManager implements ICustomerManager {
             if (customer.getId() == id) {
                 customer.setBanned(false);
                 customerDataAccess.saveCustomerList(customers);
+                System.out.println("Customer " + customer.getFirstName() + " " + customer.getLastName() + " has been unbanned.");
                 return;
+
             }
         }
+    }
+
+    @Override
+    public int getNextCustomerId() {
+        List<ICustomer> customers = customerDataAccess.getCustomerList();
+        int maxId = 1000; // Start from 1001
+        for (ICustomer customer : customers) {
+            if (customer.getId() > maxId) {
+                maxId = customer.getId();
+            }
+        }
+        return maxId + 1;
     }
 
 }
