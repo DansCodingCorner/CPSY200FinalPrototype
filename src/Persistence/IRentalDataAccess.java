@@ -27,5 +27,13 @@ public interface IRentalDataAccess
 	 */
 	List<IRental> getRentalList();
 
+    /**Method: loadFromFile
+     * @Params: None
+     * @Returns: List<IRental>
+     *Method to load data fromt he rentals.txt file.
+     *Called upon program initalization by the rental manager class
+     */
+    List<IRental> loadFromfile();
+
 
 }

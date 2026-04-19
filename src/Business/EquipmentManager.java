@@ -1,5 +1,6 @@
 package Business;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Business.Interfaces.IEquipmentManager;
@@ -60,4 +61,43 @@ public class EquipmentManager implements IEquipmentManager {
         System.out.println("Equipment not found.");
         return null;
     }
+
+    @Override
+    public ArrayList<Equipment> getAllEquipment() {
+        return equipmentList;
+    }
+
+    @Override
+    public Equipment searchEquipmentByName(String name) {
+        for (Equipment equipment : equipmentList) {
+            if (equipment.getName().equalsIgnoreCase(name)) {
+                return equipment;
+            }
+        }
+        System.out.println("Equipment not found.");
+        return null;
+    }
+
+    /**@param none
+     * @return none
+     *Used to display all the equipment that is currently available for rent to the user. Called in the UI manager class when the user selects the option to view available equipment.
+     */
+    @Override
+    public void getAvailableEquipment() {
+            ArrayList<Equipment> availableEquipment = new ArrayList<>();
+            for (Equipment equipment : equipmentList) {
+                if (equipment.isAvailable()) {
+                    availableEquipment.add(equipment);
+                }
+            }
+            if (availableEquipment.isEmpty()) {
+                System.out.println("No equipment is currently available.");
+            } else {
+                System.out.println("Available Equipment:");
+                for (Equipment equipment : availableEquipment) {
+                    System.out.println(equipment);
+                }
+            }
+    }
+
 }

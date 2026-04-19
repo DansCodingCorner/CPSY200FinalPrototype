@@ -204,7 +204,11 @@ public class UImanager implements IUIManager
                 double price = userInput.nextDouble();
                 userInput.nextLine(); // Consume newline
 
-                IEquipment newEquipment = new Equipment(id, name, description, price, true);
+                System.out.print("Enter Category ID: ");
+                int categoryId = userInput.nextInt();
+                userInput.nextLine(); // Consume newline
+
+                Equipment newEquipment = new Equipment(id, name, categoryId, true, description, price);
                 equipmentManager.addEquipment(newEquipment);
                 System.out.println("Equipment added successfully!");
                 break;
@@ -215,17 +219,53 @@ public class UImanager implements IUIManager
             case 3:
                 System.out.print("Enter Name to Search: ");
                 String searchName = userInput.nextLine();
-                equipmentManager.searchEquipmentByName(searchName).forEach(equipment -> displayEquipmentDetails(equipment.toString()));
+                Equipment foundEquipment = equipmentManager.searchEquipmentByName(searchName);
+                if (foundEquipment != null) {
+                    displayEquipmentDetails(foundEquipment.toString());
+                } else {
+                    System.out.println("Equipment not found.");
+                }
                 break;
             case 4:
                 System.out.println("Available Equipment:");
-                equipmentManager.getAvailableEquipment().forEach(equipment -> displayEquipmentDetails(equipment.toString()));
+                equipmentManager.getAllEquipment().stream()
+                    .filter(Equipment::isAvailable)
+                    .forEach(equipment -> displayEquipmentDetails(equipment.toString()));
                 break;
             case 5:
-                // Similar to customer update, implement equipment update logic here
+                System.out.print("Enter Equipment ID to Update: ");
+                int updateId = userInput.nextInt();
+                userInput.nextLine(); // Consume newline
+                Equipment existingEquipment = equipmentManager.getEquipmentById(updateId);
+                if (existingEquipment == null) {
+                    System.out.println("Equipment not found.");
+                    break;
+                }
+                System.out.print("Enter New Name (current: " + existingEquipment.getName() + "): ");
+                String newName = userInput.nextLine();
+                System.out.print("Enter New Description (current: " + existingEquipment.getDescription() + "): ");
+                String newDescription = userInput.nextLine();
+                System.out.print("Enter New Price per Day (current: " + existingEquipment.getPrice() + "): ");
+                double newPrice = userInput.nextDouble();
+                userInput.nextLine(); // Consume newline
+                System.out.print("Enter New Category ID (current: " + existingEquipment.getCategoryId() + "): ");
+                int newCategoryId = userInput.nextInt();
+                userInput.nextLine(); // Consume newline
+                Equipment updatedEquipment = new Equipment(updateId, newName, newCategoryId, existingEquipment.isAvailable(), newDescription, newPrice);
+                equipmentManager.updateEquipment(updatedEquipment);
+                System.out.println("Equipment updated successfully!");
                 break;
             case 6:
-                // Similar to customer remove, implement equipment remove logic here
+                System.out.print("Enter Equipment ID to Remove: ");
+                int removeId = userInput.nextInt();
+                userInput.nextLine(); // Consume newline
+                Equipment equipmentToRemove = equipmentManager.getEquipmentById(removeId);
+                if (equipmentToRemove == null) {
+                    System.out.println("Equipment not found.");
+                    break;
+                }
+                equipmentManager.removeEquipment(equipmentToRemove);
+                System.out.println("Equipment removed successfully!");
                 break;
             case 7:
                 displayMainMenu();

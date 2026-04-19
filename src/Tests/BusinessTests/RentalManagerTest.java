@@ -22,7 +22,7 @@ class RentalManagerTest {
 		dataAccess.getRentalList().clear();
 		dataAccess.saveRentalList(dataAccess.getRentalList());
 
-		rentalManager = new RentalManager(dataAccess);
+		rentalManager = new RentalManager();
 	}
 
 	@Test

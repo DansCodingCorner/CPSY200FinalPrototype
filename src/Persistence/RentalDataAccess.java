@@ -32,8 +32,8 @@ public class RentalDataAccess implements IRentalDataAccess
 	private final String rentalFilePath = "src/data/rentals.txt";
 
 	
-	
-	public RentalDataAccess()
+	//Private constructor for singleton pattern
+	private RentalDataAccess()
 	{
 		this.rentalList = this.getRentalList();
 	}
@@ -46,9 +46,8 @@ public class RentalDataAccess implements IRentalDataAccess
 	 *Called upon program initalization by the rental manager class
 	 */
 	@Override
-	public List<IRental> getRentalList() 
+	public List<IRental> loadFromfile() 
 	{
-		
 		List<IRental> rentalList = new ArrayList<>();
 		
         try (BufferedReader br = new BufferedReader(new FileReader(rentalFilePath))) 
