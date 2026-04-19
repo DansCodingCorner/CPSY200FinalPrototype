@@ -5,8 +5,8 @@ public interface IEquipment {
     void setId(int id);
     String getName();
     void setName(String name);
-    String getCategoryId();
-    void setCategoryId(String categoryid);
+    int getCategoryId();
+    void setCategoryId(int categoryId);
     boolean isAvailable();
     void setAvailable(boolean available);
     String getDescription();
