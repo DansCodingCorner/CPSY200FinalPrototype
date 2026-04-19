@@ -2,8 +2,10 @@ package Persistence;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import Business.Equipment;
+import Business.Interfaces.IEquipment;
 
 /**Author: Daniel caron
  * Date: April 16 2026
@@ -20,7 +22,7 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
 	private final String equipmentFilePath = "src/data/equipment.txt";
 	
 	//Internal list of equipment objects
-	private ArrayList<Equipment> equipmentList;
+	private List<IEquipment> equipmentList;
 	
 	
 	/**Private constructor for class
@@ -38,9 +40,9 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
 	 *by equipmentManager.
 	 */
 	@Override
-	public ArrayList<Equipment> loadEquipmentList() 
+	public List<IEquipment> loadEquipmentList() 
 	{
-		ArrayList<Equipment> equipmentList = new ArrayList<>();
+		List<IEquipment> equipmentList = new ArrayList<>();
 		
         try (BufferedReader br = new BufferedReader(new FileReader(equipmentFilePath))) 
         {
@@ -69,11 +71,11 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
 	 *Used to save the changes to the equipment.txt file made by the equipment manager class.
 	 */
 	@Override
-	public void saveEquipmentList(ArrayList<Equipment> equipmentList) 
+	public void saveEquipmentList(List<IEquipment> equipmentList) 
 	{
-		ArrayList<String> dataToAdd = new ArrayList<>();
+		List<String> dataToAdd = new ArrayList<>();
 		
-		for(Equipment equipment : equipmentList)
+		for(IEquipment equipment : equipmentList)
 		{
 			String data = Integer.toString(equipment.getId()) + "," + equipment.getName() + "," + equipment.getCategoryId() + "," + equipment.isAvailable() + "," + equipment.getDescription() + "," + equipment.getPrice();
 			dataToAdd.add(data);
@@ -112,7 +114,7 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
 	 * @return ArrayList<Equipment>
 	 * getter for the internal equipment list
 	 */
-	public ArrayList<Equipment> getEquipmentList()
+	public List<IEquipment> getEquipmentList()
 	{
 		return this.equipmentList;
 	}

@@ -1,22 +1,25 @@
 package Business;
 
 import java.util.List;
-
 import Business.Interfaces.IEquipment;
 import Persistence.EquipmentDataAccess;
 import Persistence.IEquipmentDataAccess;
-
 import java.util.ArrayList;
 
-public class EquipmentManager {
-    private ArrayList<Equipment> equipmentList;
+public class EquipmentManager implements IEquipmentManager
+{
     public IEquipmentDataAccess dataAccess = EquipmentDataAccess.getInstance();
 
-    public EquipmentManager() {
-        equipmentList = dataAccess.loadEquipmentList();
+    public EquipmentManager() 
+    {
+    	IEquipmentDataAccess dataAccess = EquipmentDataAccess.getInstance();
     }
 
-    public Equipment searchEquipment(int equipmentId) {
+
+    public Equipment searchEquipment(int equipmentId) 
+    {
+    	List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
+    	
         for (Equipment e : equipmentList) {
             if (e.getId() == equipmentId) {
                 return e;
@@ -24,26 +27,65 @@ public class EquipmentManager {
         }
         return null;
     }
-    public ArrayList<Equipment> loadEquipmentList() {
+    public List<IEquipment> loadEquipmentList() {
         return equipmentList;
     }
 
-    public void addEquipment(Equipment equipment) {
-        equipmentList.add(equipment);
+    public void addEquipment(Equipment equipment) 
+    {
+    	List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
+    	
+    	equipmentList.add(equipment);
+    	
+    	dataAccess.saveEquipmentList(equipmentList);
     }
 
-    public void removeEquipment(Equipment equipment) {
-        equipmentList.remove(equipment);
+    public void removeEquipment(Equipment equipment) 
+    {
+    	List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
+
+    	equipmentList.remove(equipment);
+    	
+    	dataAccess.saveEquipmentList(equipmentList);
     }
 
 
-    public void updateEquipment(Equipment updatedEquipment) {
+    public void updateEquipment(Equipment updatedEquipment)
+    {
+    	List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
+
         for (int i = 0; i < equipmentList.size(); i++) {
             if (equipmentList.get(i).getId() == updatedEquipment.getId()) {
-                equipmentList.set(i, updatedEquipment);
+            	equipmentList.set(i, updatedEquipment);
                 return;
             }
         }
     }
+
+
+    public boolean updateEquipmentAvailability(int equipmentId, boolean isAvailable)
+    {
+    	List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
+
+        for (IEquipment e : equipmentList) {
+            if (e.getId() == equipmentId) {
+                e.setAvailable(isAvailable);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public IEquipment getEquipmentById(int equipmentId) 
+    {
+    	List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
+
+        for (IEquipment e : equipmentList) {
+            if (e.getId() == equipmentId) {
+                return e;
+            }
+        }
+        System.out.println("Equipment not found.");
+        return null;
+    }
 }
-// this is a comment 

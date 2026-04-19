@@ -10,5 +10,6 @@ public interface IUIManager {
     void displayCustomerDetails(String customerDetails);
     void displayEquipmentDetails(String equipmentDetails);
     void displayRentalDetails(String rentalDetails);
+    void displayCategoryMenu();
 
 }

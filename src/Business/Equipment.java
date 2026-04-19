@@ -1,6 +1,8 @@
 package Business;
 
-public final class Equipment {
+import Business.Interfaces.IEquipment;
+
+public final class Equipment implements IEquipment {
     private int id;
     private String name;
     private String categoryid;
@@ -69,4 +71,6 @@ public final class Equipment {
     {
     	this.price = newPrice;
     }
+
+
 }

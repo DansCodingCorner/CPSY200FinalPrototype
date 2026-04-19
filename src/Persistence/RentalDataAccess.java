@@ -32,10 +32,10 @@ public class RentalDataAccess implements IRentalDataAccess
 	private final String rentalFilePath = "src/data/rentals.txt";
 
 	
-	//Private constructor for singleton pattern
-	private RentalDataAccess()
+	
+	public RentalDataAccess()
 	{
-		this.rentalList = this.loadRentalList();
+		this.rentalList = this.getRentalList();
 	}
 	
 	
@@ -46,7 +46,7 @@ public class RentalDataAccess implements IRentalDataAccess
 	 *Called upon program initalization by the rental manager class
 	 */
 	@Override
-	public List<IRental> loadRentalList() 
+	public List<IRental> getRentalList() 
 	{
 		
 		List<IRental> rentalList = new ArrayList<>();
@@ -58,7 +58,7 @@ public class RentalDataAccess implements IRentalDataAccess
             while ((line = br.readLine()) != null) 
             {
             	String[] lineDeconstructed  = line.split(",");
-				if (lineDeconstructed.length != 7) {
+				if (lineDeconstructed.length != 8) {
 					System.out.println("Invalid line format in rentals.txt: " + line);
 					continue;
 				}
@@ -70,7 +70,8 @@ public class RentalDataAccess implements IRentalDataAccess
 						Integer.parseInt(lineDeconstructed[3]), 
 						LocalDate.parse(lineDeconstructed[4]), 
 						LocalDate.parse(lineDeconstructed[5]), 
-						Double.parseDouble(lineDeconstructed[6]));
+						Double.parseDouble(lineDeconstructed[6]),
+						Boolean.parseBoolean(lineDeconstructed[7]));
             		rentalList.add(rentalToAdd);
             	} catch (Exception e) {
             		System.out.println("Error parsing line in rentals.txt: " + line);
