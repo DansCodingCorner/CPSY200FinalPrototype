@@ -1,8 +1,13 @@
 package Presentation;
 
+import java.util.List;
 import java.util.Scanner;
 
 import Business.Interfaces.*;
+import Business.Reports.CategoryListReport;
+import Business.Reports.SalesByCustomerReport;
+import Business.Reports.SalesByDateReport;
+import Business.Reports.Interfaces.ISalesByCustomerReport;
 import Business.*;
 import java.time.LocalDate;
 
@@ -15,7 +20,8 @@ public class UImanager implements IUIManager
     private IRentalManager rentalManager;
     private ICategoryManager categoryManager;
 
-    public UImanager() {
+    public UImanager() 
+    {
         this.customerManager = new CustomerManager();
         this.equipmentManager = new EquipmentManager();
         this.rentalManager = new RentalManager();
@@ -30,6 +36,8 @@ public class UImanager implements IUIManager
         System.out.println("3. Rental Management");
         System.out.println("4. Category Management");
         System.out.println("5. Exit");
+        System.out.println("6. Generate Reports");
+
 
         System.out.print("\nEnter option: ");
         int choice = userInput.nextInt();
@@ -51,6 +59,14 @@ public class UImanager implements IUIManager
                 System.out.println("Thank you for using the Equipment Rental System. Goodbye!");
                 System.exit(0);
                 break;
+            case 6:
+            	displayReportsMenu();
+            	break;
+            default :
+            	System.out.println("Invalid selection. Returning to menu.");
+            	displayMainMenu();
+            	break;
+            	
         }
     }
 
@@ -640,6 +656,71 @@ public class UImanager implements IUIManager
             default:
                 break;
         }
+    }
+    
+    public void displayReportsMenu()
+    {
+    	CategoryListReport categoriesReport = new CategoryListReport();
+    	SalesByCustomerReport salesByCustomerReport = new SalesByCustomerReport();
+    	SalesByDateReport salesByDateReport = new SalesByDateReport();
+    	
+    	
+        System.out.println("\n======= Reports =======");
+    	System.out.println("1: Current Category List");
+    	System.out.println("2: Sales by customer report");
+    	System.out.println("3: Sales By date report");
+    	System.out.println("4: Back to main menu");
+
+
+		int choice = userInput.nextInt();
+	    userInput.nextLine(); 
+	    
+	    switch(choice)
+	    {
+	    	case 1:
+	    		System.out.println("Generating list of current Categories...");
+	    		System.out.println(categoriesReport.generateReport());
+	    		
+	    		displayMainMenu();
+	    		break;
+	    	case 2:
+	    		System.out.println("Enter customer ID to search: ");
+	    		int customerId = userInput.nextInt();
+	    	    userInput.nextLine(); 
+	    	    
+	    	    ICustomer customer = customerManager.getCustomerById(customerId);
+	    	    
+	    	    System.out.println(salesByCustomerReport.generateReport(customer));
+	    	    
+	    		displayMainMenu();
+
+	    		break;
+	    	case 3:
+	    		System.out.println("Generate aa report of sales for a given day: ");
+	    		
+	    		System.out.println("Enter year (yyyy): ");
+	    		int year = userInput.nextInt();
+	    	    userInput.nextLine(); 
+	    	    
+	    		System.out.println("Enter month (mm): ");
+	    		int month = userInput.nextInt();
+	    	    userInput.nextLine(); 
+	    	    
+	    		System.out.println("Enter year (dd): ");
+	    		int day = userInput.nextInt();
+	    	    userInput.nextLine(); 
+	    	    
+	    	    LocalDate date = LocalDate.of(year, month, day);
+
+	    		System.out.println(salesByDateReport.generateReport(date));
+	    		break;
+	    	case 4:
+	    		displayMainMenu();
+	    	default :
+	    		System.out.println("Invalid selection. Returning to main menu.");
+	    		displayMainMenu();
+	    }
+	
     }
 
 }

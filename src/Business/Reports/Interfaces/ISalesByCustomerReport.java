@@ -1,9 +1,8 @@
 package Business.Reports.Interfaces;
 
-import Business.Customer;
-import Persistence.RentalDataAccess;
+import Business.Interfaces.ICustomer;
 
 public interface ISalesByCustomerReport 
 {
-	public String generateReport(Customer customer, RentalDataAccess dataAccess); 
+	public String generateReport(ICustomer customer); 
 }

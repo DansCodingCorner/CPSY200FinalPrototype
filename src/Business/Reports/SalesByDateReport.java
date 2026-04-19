@@ -7,12 +7,20 @@ import Business.*;
 import Business.Interfaces.*;
 import Business.Reports.Interfaces.ISalesByDateReport;
 import Persistence.IRentalDataAccess;
+import Persistence.RentalDataAccess;
 
 public class SalesByDateReport implements ISalesByDateReport
 {
+	
+	IRentalDataAccess dataAccess;
+	
+	public SalesByDateReport()
+	{
+		this.dataAccess = RentalDataAccess.getInstance();
+	}
 
 	@Override
-	public String generateReport(IRentalDataAccess dataAccess, LocalDate date) 
+	public String generateReport(LocalDate date) 
 	{
 	    List<IRental> rentals = dataAccess.loadFromfile();
 	    EquipmentManager equipmentManager = new EquipmentManager();
