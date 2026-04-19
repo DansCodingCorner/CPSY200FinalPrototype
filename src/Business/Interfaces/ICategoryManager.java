@@ -16,5 +16,4 @@ public interface ICategoryManager
 
 	public boolean removeCategoryById(ICategory categoryToRemove);
 
-
 }

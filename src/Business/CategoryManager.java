@@ -8,9 +8,6 @@ import Persistence.CategoryDataAccess;
 
 public class CategoryManager implements  ICategoryManager
 {
-
-	
-	
 	private CategoryDataAccess categoryDataAccess;
 
 	public CategoryManager() 

@@ -1,17 +1,17 @@
 package Business.Interfaces;
 
 
-import java.util.ArrayList;
+import java.util.List;
 
-import Business.Equipment;
+
 public interface IEquipmentManager {
-    Equipment searchEquipment(int equipmentId);
-    void addEquipment(Equipment equipment);
-    void removeEquipment(Equipment equipment);
-    void updateEquipment(Equipment updatedEquipment);
+    IEquipment searchEquipment(int equipmentId);
+    void addEquipment(IEquipment equipment);
+    void removeEquipment(IEquipment equipment);
+    void updateEquipment(IEquipment updatedEquipment);
     boolean updateEquipmentAvailability(int equipmentId, boolean isAvailable);
-    Equipment getEquipmentById(int equipmentId);
-    ArrayList<Equipment> getAllEquipment();
-    Equipment searchEquipmentByName(String name);
+    IEquipment getEquipmentById(int equipmentId);
+    List<IEquipment> getAllEquipment();
+    IEquipment searchEquipmentByName(String name);
     void getAvailableEquipment();
 }
