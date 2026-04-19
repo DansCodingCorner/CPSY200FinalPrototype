@@ -86,4 +86,31 @@ public class CustomerManager implements ICustomerManager {
 
         return removed;
     }
+
+    @Override
+    public void banCustomerById(int id) {
+        List<ICustomer> customers = customerDataAccess.getCustomerList();
+
+        for (ICustomer customer : customers) {
+            if (customer.getId() == id) {
+                customer.setBanned(true);
+                customerDataAccess.saveCustomerList(customers);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void unbanCustomerById(int id) {
+        List<ICustomer> customers = customerDataAccess.getCustomerList();
+
+        for (ICustomer customer : customers) {
+            if (customer.getId() == id) {
+                customer.setBanned(false);
+                customerDataAccess.saveCustomerList(customers);
+                return;
+            }
+        }
+    }
+
 }

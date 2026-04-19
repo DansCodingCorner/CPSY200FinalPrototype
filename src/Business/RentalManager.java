@@ -5,6 +5,7 @@ package Business;
 
 import Business.Interfaces.IRentalManager;
 import Persistence.IRentalDataAccess;
+import Persistence.RentalDataAccess;
 import Business.Interfaces.IRental;
 
 import java.time.LocalDate;
@@ -17,8 +18,10 @@ public class RentalManager implements IRentalManager{
     private IRentalDataAccess rentalDataAccess;
     private int nextRentalId = 1;
 
-    public RentalManager(IRentalDataAccess rentalDataAccess) {
-        this.rentalDataAccess = rentalDataAccess;
+   
+
+    public RentalManager() {
+        this.rentalDataAccess = RentalDataAccess.getInstance();;
     }
 
     @Override

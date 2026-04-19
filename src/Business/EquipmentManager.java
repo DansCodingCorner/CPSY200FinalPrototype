@@ -2,7 +2,9 @@ package Business;
 
 import java.util.ArrayList;
 
-public class EquipmentManager {
+import Business.Interfaces.IEquipmentManager;
+
+public class EquipmentManager implements IEquipmentManager {
     private ArrayList<Equipment> equipmentList;
 
     public EquipmentManager() {
@@ -11,7 +13,7 @@ public class EquipmentManager {
 
     public Equipment searchEquipment(int equipmentId) {
         for (Equipment e : equipmentList) {
-            if (e.getEquipmentId() == equipmentId) {
+            if (e.getId() == equipmentId) {
                 return e;
             }
         }
@@ -32,11 +34,30 @@ public class EquipmentManager {
 
     public void updateEquipment(Equipment updatedEquipment) {
         for (int i = 0; i < equipmentList.size(); i++) {
-            if (equipmentList.get(i).getEquipmentId() == updatedEquipment.getEquipmentId()) {
+            if (equipmentList.get(i).getId() == updatedEquipment.getId()) {
                 equipmentList.set(i, updatedEquipment);
                 return;
             }
         }
     }
+
+    public boolean updateEquipmentAvailability(int equipmentId, boolean isAvailable) {
+        for (Equipment e : equipmentList) {
+            if (e.getId() == equipmentId) {
+                e.setAvailable(isAvailable);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Equipment getEquipmentById(int equipmentId) {
+        for (Equipment e : equipmentList) {
+            if (e.getId() == equipmentId) {
+                return e;
+            }
+        }
+        System.out.println("Equipment not found.");
+        return null;
+    }
 }
-// this is a comment 

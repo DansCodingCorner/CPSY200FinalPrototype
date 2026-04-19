@@ -9,10 +9,12 @@ import Business.Interfaces.ICustomer;
 import Business.Interfaces.IEquipment;
 import Business.Interfaces.IRental;
 import Business.Customer;
+import Business.CustomerManager;
 import Business.RentalManager;
 import Business.EquipmentManager;
 import Business.CategoryManager;
 import java.time.LocalDate;
+import Business.Equipment;
 
 
 public class UImanager implements IUIManager
@@ -24,10 +26,10 @@ public class UImanager implements IUIManager
     private ICategoryManager categoryManager;
 
     public UImanager() {
-        this.customerManager = customerManager;
-        this.equipmentManager = equipmentManager;
-        this.rentalManager = rentalManager;
-        this.categoryManager = categoryManager;
+        this.customerManager = new CustomerManager();
+        this.equipmentManager = new EquipmentManager();
+        this.rentalManager = new RentalManager();
+        this.categoryManager = new CategoryManager();
     }
 
     @Override
@@ -182,6 +184,53 @@ public class UImanager implements IUIManager
         System.out.println("5. Update Equipment");
         System.out.println("6. Remove Equipment");
         System.out.println("7. Back to Main Menu");
+
+        int choice = userInput.nextInt();
+        userInput.nextLine(); // Consume newline
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter ID: ");
+                int id = userInput.nextInt();
+                userInput.nextLine(); // Consume newline
+
+                System.out.print("Enter Name: ");
+                String name = userInput.nextLine();
+                
+                System.out.print("Enter Description: ");
+                String description = userInput.nextLine();
+            
+                System.out.print("Enter Price per Day: ");
+                double price = userInput.nextDouble();
+                userInput.nextLine(); // Consume newline
+
+                IEquipment newEquipment = new Equipment(id, name, description, price, true);
+                equipmentManager.addEquipment(newEquipment);
+                System.out.println("Equipment added successfully!");
+                break;
+            case 2:
+                System.out.println("All Equipment:");
+                equipmentManager.getAllEquipment().forEach(equipment -> displayEquipmentDetails(equipment.toString()));
+                break;
+            case 3:
+                System.out.print("Enter Name to Search: ");
+                String searchName = userInput.nextLine();
+                equipmentManager.searchEquipmentByName(searchName).forEach(equipment -> displayEquipmentDetails(equipment.toString()));
+                break;
+            case 4:
+                System.out.println("Available Equipment:");
+                equipmentManager.getAvailableEquipment().forEach(equipment -> displayEquipmentDetails(equipment.toString()));
+                break;
+            case 5:
+                // Similar to customer update, implement equipment update logic here
+                break;
+            case 6:
+                // Similar to customer remove, implement equipment remove logic here
+                break;
+            case 7:
+                displayMainMenu();
+                break;
+        }
     }
 
     @Override
@@ -234,15 +283,14 @@ public class UImanager implements IUIManager
                     LocalDate rentalLocalDate = LocalDate.parse(rentalDate);
                     LocalDate returnLocalDate = LocalDate.parse(returnDate);
                     
-                    rentalManager.createRental(rentalManager.createRentalId(), LocalDate.now(), customerId, equipmentId, rentalDate, returnDate, equipment.getDailyRate());
+                    rentalManager.createRental(rentalManager.createRentalId(), rentalLocalDate, customerId, equipmentId, rentalLocalDate, returnLocalDate, equipment.getPrice());
+
+                    equipmentManager.updateEquipmentAvailability(equipmentId, false);
+                System.out.println("Rental created successfully!" + " Total Cost: $" + rentalManager.calculateCost(rentalLocalDate, returnLocalDate, equipment.getPrice()));
                 } catch (Exception e) {
                     System.out.println("Invalid date format. Please use YYYY-MM-DD.");
                     break;
                 }
-                equipmentManager.updateEquipmentAvailability(equipmentId, false);
-                System.out.println("Rental created successfully!" + " Total Cost: $" + rentalManager.calculateCost(LocalDate.parse(rentalDate), LocalDate.parse(returnDate), equipment.getDailyRate()));
-
-
                 break;
             case 2:
                 System.out.println("Enter Rental ID to Return: ");

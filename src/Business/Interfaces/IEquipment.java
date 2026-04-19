@@ -9,4 +9,8 @@ public interface IEquipment {
     void setCategoryId(String categoryid);
     boolean isAvailable();
     void setAvailable(boolean available);
+    String getDescription();
+    void setDescription(String description);
+    double getPrice();
+    void setPrice(double price);
 }

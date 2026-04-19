@@ -8,9 +8,7 @@ import Business.Interfaces.IRental;
 
 public interface IRentalDataAccess 
 {
-	public List<IRental> getRentalList();
 	
-	public void setRentalList(List<IRental> rentalList);
     /**Method: saveRentalList
      *@Params: List<IRental>
      *@Returns: Void
@@ -27,7 +25,7 @@ public interface IRentalDataAccess
 	 *Method to load data fromt he rentals.txt file.
 	 *Called upon program initalization by the rental manager class
 	 */
-	List<IRental> loadRentalList();
+	List<IRental> getRentalList();
 
 
 }

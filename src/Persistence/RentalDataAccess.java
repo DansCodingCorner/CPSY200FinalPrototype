@@ -32,10 +32,10 @@ public class RentalDataAccess implements IRentalDataAccess
 	private final String rentalFilePath = "src/data/rentals.txt";
 
 	
-	//Private constructor for singleton pattern
-	private RentalDataAccess()
+	
+	public RentalDataAccess()
 	{
-		this.rentalList = this.loadRentalList();
+		this.rentalList = this.getRentalList();
 	}
 	
 	
@@ -46,7 +46,7 @@ public class RentalDataAccess implements IRentalDataAccess
 	 *Called upon program initalization by the rental manager class
 	 */
 	@Override
-	public List<IRental> loadRentalList() 
+	public List<IRental> getRentalList() 
 	{
 		
 		List<IRental> rentalList = new ArrayList<>();
