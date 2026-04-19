@@ -6,9 +6,17 @@ import Business.Reports.Interfaces.ICategoryListReport;
 import Persistence.CategoryDataAccess;
 import Persistence.ICategoryDataAccess;
 
-public class CategoryListReport implements ICategoryListReport {
+public class CategoryListReport implements ICategoryListReport 
+{
+	ICategoryDataAccess dataAccess;
+	
+	public CategoryListReport()
+	{
+		this.dataAccess = CategoryDataAccess.getInstance();
+	}
 
-    public String generateReport(ICategoryDataAccess dataAccess) {
+    public String generateReport() 
+    {
 
         List<ICategory> categories = dataAccess.loadCategories();
 
@@ -52,10 +60,4 @@ public class CategoryListReport implements ICategoryListReport {
         return report.toString();
     }
 
-    // Keep your main method for testing
-    public static void main(String[] args) {
-        CategoryListReport c = new CategoryListReport();
-        CategoryDataAccess d = CategoryDataAccess.getInstance();
-        System.out.println(c.generateReport(d));
-    }
 }

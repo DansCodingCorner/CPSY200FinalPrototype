@@ -3,14 +3,22 @@ import java.util.List;
 
 import Business.Customer;
 import Business.EquipmentManager;
+import Business.Interfaces.ICustomer;
 import Business.Interfaces.IRental;
 import Business.Reports.Interfaces.ISalesByCustomerReport;
+import Persistence.IRentalDataAccess;
 import Persistence.RentalDataAccess;
 
 public class SalesByCustomerReport implements ISalesByCustomerReport
 {
+	IRentalDataAccess dataAccess;
+	
+	public SalesByCustomerReport()
+	{
+		this.dataAccess = RentalDataAccess.getInstance();
+	}
 
-	public String generateReport(Customer customer, RentalDataAccess dataAccess)
+	public String generateReport(ICustomer customer)
 	{
 	    List<IRental> rentals = dataAccess.getRentalList();
 	    EquipmentManager equipmentManager = new EquipmentManager();
