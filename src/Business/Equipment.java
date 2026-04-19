@@ -73,6 +73,11 @@ public final class Equipment implements IEquipment
     	this.price = newPrice;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%-5d %-20s %-12d %-10s %10.2f%n Description: %s%n",
+                id, name, categoryId, isAvailable ? "Yes" : "No", price, description);
+    }
 }
 
 

@@ -10,6 +10,8 @@ public interface ICustomerManager {
     boolean updateCustomer(ICustomer updatedCustomer);
     boolean removeCustomerById(ICustomer customer);
     ICustomer getCustomerById(int id);
+    int getNextCustomerId();
     void banCustomerById(int id);
+    void unbanCustomerById(int id);
 
 }
