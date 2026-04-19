@@ -71,13 +71,5 @@ public class SalesByCustomerReport implements ISalesByCustomerReport
 	    return report.toString();
 	}
 
-        // Keep your main method for testing
-        public static void main(String[] args) 
-        {
-        	Customer customer = new Customer(1001,"John","Doe","jd@sample.net","(555) 555-1212",false,0.00);
-            SalesByCustomerReport c = new SalesByCustomerReport();
-            RentalDataAccess d = RentalDataAccess.getInstance();
-            System.out.println(c.generateReport(customer, d));
-        }
 
-	}
+}
