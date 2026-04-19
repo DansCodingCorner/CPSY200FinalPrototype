@@ -86,6 +86,41 @@ public class CategoryManager implements  ICategoryManager
 		}
 		return false;	
 		}
+	
+	@Override
+	public ICategory getCategoryById(int id) {
+		List<ICategory> categories = categoryDataAccess.loadCategories();
+		
+		for(ICategory category : categories)
+		{
+			if(category.getId() == id)
+			{
+				System.out.println("Category ID: " + category.getId());
+				System.out.println("Category Name: " + category.getName());
+				return category;
+			}
+		}
+		
+		System.out.println("Category not found.");
+		return null;
+	}
 
+	@Override
+	public ICategory searchCategoryByName(String searchName) {
+		List<ICategory> categories = categoryDataAccess.loadCategories();
+		
+		for(ICategory category : categories)
+		{
+			if(category.getName().equalsIgnoreCase(searchName))
+			{
+				System.out.println("Category ID: " + category.getId());
+				System.out.println("Category Name: " + category.getName());
+				return category;
+			}
+		}
+		
+		System.out.println("Category not found.");
+		return null;
+	}
 
 }

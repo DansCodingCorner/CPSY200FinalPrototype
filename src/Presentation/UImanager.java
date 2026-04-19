@@ -390,6 +390,75 @@ public class UImanager implements IUIManager
         System.out.println("4. Update Category");
         System.out.println("5. Remove Category");
         System.out.println("6. Back to Main Menu");
+
+        int choice = userInput.nextInt();
+        userInput.nextLine(); // Consume newline
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter ID: ");
+                int id = userInput.nextInt();
+                userInput.nextLine(); // Consume newline
+
+                System.out.print("Enter Name: ");
+                String name = userInput.nextLine();
+                ICategory newCategory = new Category(id, name);
+                categoryManager.addCategory(newCategory);
+                System.out.println("Category added successfully!");
+                displayCategoryMenu();
+                break;
+            case 2:
+                System.out.println("All Categories:");
+                categoryManager.getAllCategories().forEach(category -> displayMessage(category.toString()));
+                displayCategoryMenu();
+                break;
+            case 3:
+                System.out.print("Enter Name to Search: ");
+                String searchName = userInput.nextLine();
+                ICategory foundCategory = categoryManager.searchCategoryByName(searchName);
+                if (foundCategory != null) {
+                    displayMessage(foundCategory.toString());
+                } else {
+                    System.out.println("Category not found.");
+                }
+                break;
+            case 4:
+                System.out.print("Enter Category ID to Update: ");
+                int updateId = userInput.nextInt();
+                userInput.nextLine(); // Consume newline
+                ICategory existingCategory = categoryManager.getCategoryById(updateId);
+                if (existingCategory == null) {
+                    System.out.println("Category not found.");
+                    displayCategoryMenu();
+                    break;
+                }
+                System.out.print("Enter New Name: ");
+                String newName = userInput.nextLine();
+                existingCategory.setName(newName);
+                categoryManager.updateCategory(existingCategory);
+                System.out.println("Category updated successfully!");
+                displayCategoryMenu();
+                break;
+            case 5:
+                System.out.print("Enter Category ID to Remove: ");
+                int removeId = userInput.nextInt();
+                userInput.nextLine(); // Consume newline
+                ICategory categoryToRemove = categoryManager.getCategoryById(removeId);
+                if (categoryToRemove == null) {
+                    System.out.println("Category not found.");
+                    displayCategoryMenu();
+                    break;
+                }
+                categoryManager.removeCategoryById(categoryToRemove);
+                System.out.println("Category removed successfully!");
+                displayCategoryMenu();
+                break;
+            case 6:
+                displayMainMenu();
+                break;
+            default:
+                break;
+        }
     }
 
 }
