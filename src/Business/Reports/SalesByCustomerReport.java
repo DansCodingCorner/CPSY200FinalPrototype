@@ -1,6 +1,13 @@
 package Business.Reports;
 
-public class SalesByCustomerReport implements ReportsInterface
+import Business.Reports.Interfaces.ISalesByCustomerReport;
+
+public class SalesByCustomerReport implements ISalesByCustomerReport
 {
+
+	public String generateReport() 
+	{
+		return null;
+	}
 
 }
