@@ -72,4 +72,8 @@ public final class Equipment implements IEquipment
     {
     	this.price = newPrice;
     }
+
 }
+
+
+
