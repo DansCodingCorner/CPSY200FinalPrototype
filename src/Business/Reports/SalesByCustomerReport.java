@@ -3,71 +3,88 @@ package Business.Reports;
 import java.util.List;
 
 import Business.Customer;
+import Business.Equipment;
 import Business.EquipmentManager;
-import Business.Interfaces.ICategory;
 import Business.Interfaces.IRental;
 import Business.Reports.Interfaces.ISalesByCustomerReport;
-import Persistence.CategoryDataAccess;
-import Persistence.ICategoryDataAccess;
+import Persistence.EquipmentDataAccess;
+import Persistence.IEquipmentDataAccess;
 import Persistence.RentalDataAccess;
 
 public class SalesByCustomerReport implements ISalesByCustomerReport
 {
 
-	public String generateReport(Customer customer, RentalDataAccess dataAccess) 
+	public String generateReport(Customer customer, RentalDataAccess dataAccess)
 	{
-		List<IRental> rentals = dataAccess.loadRentalList();
-		EquipmentManager equipmentManager = new EquipmentManager();
-		
-        if (rentals == null || rentals.isEmpty()) 
-        {
-            return "No categories found.";
-        }
-        
-        StringBuilder report = new StringBuilder();
+	    List<IRental> rentals = dataAccess.loadRentalList();
+	    EquipmentManager equipmentManager = new EquipmentManager();
 
-        // Fancy Header
-        report.append("╔════════════════════════════════════════════════════════════════════════════╗\n");
-        report.append("║                    CUSTOMER SALES REPORT                                    ║\n");
-        report.append("╠════════════════════════════════════════════════════════════════════════════╣\n\n");
-        
+	    if (rentals == null || rentals.isEmpty())
+	    {
+	        return "No rentals found.";
+	    }
 
+	    StringBuilder report = new StringBuilder();
 
-            // Table Header
-        report.append("╔═════╤═══════╤══════╤═══════════╤═════════════╤═════════════╤═══════════════╗\n");
-        report.append("║  ID ║ FIRST ║ LAST ║ EQUIPMENT ║ RENTAL DATE ║ RETURN DATE ║ COST          ║\n");
-        report.append("╠═════╪═══════╪══════╪═══════════╪═════════════╪═════════════╪═══════════════╣\n");
+	    // Fancy Header with Customer Name
+	    report.append("╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+	    report.append(String.format("║               SALES REPORT FOR: %-76s ║\n",
+	            customer.getFirstName() + " " + customer.getLastName()));
+	    report.append("╠══════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n\n");
 
-            // Table Rows
-            for (IRental rental : rentals) {
-                int id = rental.getId();
-                // Truncate name if it's too long to keep table alignment
+	    // Table Header - Better aligned
+	    report.append("╔══════╤══════════════╤══════════════╤══════════════════════════════╤══════════════╤══════════════╤════════════╗\n");
+	    report.append("║  ID  ║ FIRST NAME   ║ LAST NAME    ║ EQUIPMENT                    ║ RENTAL DATE  ║ RETURN DATE  ║    COST    ║\n");
+	    report.append("╠══════╪══════════════╪══════════════╪══════════════════════════════╪══════════════╪══════════════╪════════════╣\n");
 
-                
-                report.append(String.format("║ %3d ║ %-10s ║ %-10s ║ %-10s ║\n", 
-                    rental.getId(), 
-                    customer.getFirstName() + customer.getLastName(), equipmentManager.,rental.getRentalDate()));
-            }
+	    double totalCost = 0.0;
+	    int rentalCount = 0;
 
-            // Table Footer
-            report.append("╚═════╧══════════════════════════════════════════════════════════════════════╝\n\n");
+	    // Table Rows
+	    for (IRental rental : rentals)
+	    {
+	        if (rental.getCustomerId() == customer.getId())
+	        {
+	            String fullNameFirst = customer.getFirstName() != null ? customer.getFirstName() : "";
+	            String fullNameLast  = customer.getLastName()  != null ? customer.getLastName()  : "";
+	            String equipmentName = equipmentManager.searchEquipment(rental.getEquipmentId()).getName();
 
-            // Summary
-            report.append("Total Categories: ")
-                  .append(categories.size())
-                  .append("\n");
+	            // Safe string conversion for dates
+	            String rentalDateStr = rental.getRentalDate() != null ? rental.getRentalDate().toString() : "N/A";
+	            String returnDateStr = rental.getReturnDate() != null ? rental.getReturnDate().toString() : "N/A";
 
-            return report.toString();
-        }
+	            report.append(String.format("║ %4d ║ %-12s ║ %-12s ║ %-28s ║ %-12s ║ %-12s ║ $%9.2f ║\n",
+	                    rental.getId(),
+	                    fullNameFirst,
+	                    fullNameLast,
+	                    equipmentName != null ? equipmentName : "Unknown",
+	                    rentalDateStr,
+	                    returnDateStr,
+	                    rental.getCost()));
 
-        // Keep your main method for testing
-        public static void main(String[] args) {
-            CategoryListReport c = new CategoryListReport();
-            CategoryDataAccess d = CategoryDataAccess.getInstance();
-            System.out.println(c.generateReport(d));
-        }
+	            totalCost += rental.getCost();
+	            rentalCount++;
+	        }
+	    }
 
-		return null;
+	    // Table Footer
+	    report.append("╚══════╧══════════════╧══════════════╧══════════════════════════════╧══════════════╧══════════════╧════════════╝\n\n");
+
+	    // Summary
+	    report.append("Total Rentals: ").append(rentalCount).append("\n");
+	    report.append(String.format("Total Amount : $%.2f\n", totalCost));
+
+	    return report.toString();
 	}
 
-}
+        // Keep your main method for testing
+        public static void main(String[] args) 
+        {
+        	Customer customer = new Customer(1001,"John","Doe","jd@sample.net","(555) 555-1212",false,0.00);
+            SalesByCustomerReport c = new SalesByCustomerReport();
+            RentalDataAccess d = RentalDataAccess.getInstance();
+            System.out.println(c.generateReport(customer, d));
+        }
+
+	}
+
