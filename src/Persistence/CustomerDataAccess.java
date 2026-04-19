@@ -44,13 +44,14 @@ public class CustomerDataAccess implements ICustomerDataAccess
         {
             e.printStackTrace();
         }
-        System.out.println("categories.txt file is empty");
+        System.out.println("customers.txt file is empty");
 		return customerList;
 	}
 
 	@Override
 	public void saveCustomerList(List<ICustomer> customerList) 
 	{
+		customerList.sort((c1, c2) -> Integer.compare(c1.getId(), c2.getId()));
 		List<String> dataToAdd = new ArrayList<>();
 		
 		for(ICustomer customer : customerList)

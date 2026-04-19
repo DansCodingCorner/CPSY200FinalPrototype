@@ -12,6 +12,24 @@ public class Customer implements ICustomer {
     private boolean isBanned;
 
     public Customer(int customerId, String firstName, String lastName, String email,String phoneNumber, boolean isBanned, double discountRate) {
+
+        if (customerId < 0) {
+            throw new IllegalArgumentException("Customer ID cannot be negative.");
+        }
+
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name cannot be null or empty.");
+        }
+
+        if (lastName == null || lastName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name cannot be null or empty.");
+        }
+
+        if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
+            throw new IllegalArgumentException("Phone number cannot be null or empty.");
+        }
+        
+
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;

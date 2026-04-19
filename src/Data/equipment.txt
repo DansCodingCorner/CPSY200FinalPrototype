@@ -2,4 +2,5 @@
 201,Chainsaw,20,true,Gas-powered chainsaw for cutting wood,49.99
 202,Lawn mower,20,true,Self-propelled lawn mower with mulching function,19.99
 301,Small Compressor,30,true,5 Gallon Compressor-Portable,14.99
+401,Shavol,20,true,Hand Shoval for gardening,5.99
 501,Brad Nailer,50,true,Brad Nailer. Requires 3/4 to 1 1/2 Brad Nails,10.99

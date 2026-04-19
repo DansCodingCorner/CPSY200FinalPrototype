@@ -2,6 +2,7 @@ package Persistence;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import Business.Equipment;
@@ -73,6 +74,7 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
 	@Override
 	public void saveEquipmentList(List<IEquipment> equipmentList) 
 	{
+		equipmentList.sort(Comparator.comparingInt(IEquipment::getId));
 		List<String> dataToAdd = new ArrayList<>();
 		
 		for(IEquipment equipment : equipmentList)
