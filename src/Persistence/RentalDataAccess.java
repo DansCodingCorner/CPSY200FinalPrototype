@@ -35,7 +35,7 @@ public class RentalDataAccess implements IRentalDataAccess
 	//Private constructor for singleton pattern
 	private RentalDataAccess()
 	{
-		this.rentalList = this.getRentalList();
+		this.rentalList = this.loadFromfile();
 	}
 	
 	
@@ -62,6 +62,7 @@ public class RentalDataAccess implements IRentalDataAccess
 					continue;
 				}
             	try {
+
             		IRental rentalToAdd = new Rental(
 						Integer.parseInt(lineDeconstructed[0]), 
 						LocalDate.parse(lineDeconstructed[1]), 
