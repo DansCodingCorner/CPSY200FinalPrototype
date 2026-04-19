@@ -16,19 +16,20 @@ public class EquipmentManager implements IEquipmentManager
     }
 
 
-    public Equipment searchEquipment(int equipmentId) 
+    public IEquipment searchEquipment(int equipmentId) 
     {
     	List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
     	
-        for (Equipment e : equipmentList) {
+        for (IEquipment e : equipmentList) {
             if (e.getId() == equipmentId) {
                 return e;
             }
         }
         return null;
     }
+    
     public List<IEquipment> loadEquipmentList() {
-        return equipmentList;
+        return dataAccess.loadEquipmentList();
     }
 
     public void addEquipment(Equipment equipment) 
