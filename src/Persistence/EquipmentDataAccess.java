@@ -49,7 +49,7 @@ public class EquipmentDataAccess implements IEquipmentDataAccess
             while ((line = br.readLine()) != null) 
             {
             	String[] lineDeconstrcuted  = line.split(",");
-            	Equipment equipmentToAdd = new Equipment (Integer.parseInt(lineDeconstrcuted[0]), lineDeconstrcuted[1],lineDeconstrcuted[2],Boolean.parseBoolean(lineDeconstrcuted[3]),lineDeconstrcuted[4],Double.parseDouble(lineDeconstrcuted[5]));
+            	Equipment equipmentToAdd = new Equipment(Integer.parseInt(lineDeconstrcuted[0]), lineDeconstrcuted[1], Integer.parseInt(lineDeconstrcuted[2]), Boolean.parseBoolean(lineDeconstrcuted[3]), lineDeconstrcuted[4], Double.parseDouble(lineDeconstrcuted[5]));
             	equipmentList.add(equipmentToAdd);
             }
             return equipmentList;

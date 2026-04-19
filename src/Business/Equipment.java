@@ -5,12 +5,12 @@ import Business.Interfaces.IEquipment;
 public final class Equipment implements IEquipment {
     private int id;
     private String name;
-    private String categoryId;
+    private int categoryId;
     private String description;
     private boolean isAvailable;
     private double price;
 
-    public Equipment(int id, String name, String categoryId, boolean isAvailable, String description, double price) 
+    public Equipment(int id, String name, int categoryId, boolean isAvailable, String description, double price) 
     {
         this.id = id;
         this.name = name;
@@ -36,11 +36,11 @@ public final class Equipment implements IEquipment {
         this.name = name;
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 

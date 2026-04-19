@@ -27,7 +27,7 @@ class RentalDataAccessTest {
 		IRental rental = new Rental(1, LocalDate.of(2024,2,13), 1, 1, LocalDate.parse("2024-01-01"), LocalDate.parse("2024-01-10"), 100.0, false);
 		dataAccess.getRentalList().add(rental);
 		dataAccess.saveRentalList(dataAccess.getRentalList());
-		List<IRental> loadedRentals = dataAccess.loadRentalList();
+		List<IRental> loadedRentals = dataAccess.getRentalList();
 		assertEquals(1, loadedRentals.size());
 		assertEquals(1, loadedRentals.get(0).getCustomerId());
 	}
@@ -39,7 +39,7 @@ class RentalDataAccessTest {
 		dataAccess.getRentalList().add(rental1);
 		dataAccess.getRentalList().add(rental2);
 		dataAccess.saveRentalList(dataAccess.getRentalList());
-		List<IRental> loadedRentals = dataAccess.loadRentalList();
+		List<IRental> loadedRentals = dataAccess.getRentalList();
 		assertEquals(2, loadedRentals.size());
 		assertEquals(1, loadedRentals.get(0).getCustomerId());
 		assertEquals(2, loadedRentals.get(1).getCustomerId());
@@ -50,7 +50,7 @@ class RentalDataAccessTest {
 		IRental rental = new Rental(3, LocalDate.of(2024,3,15), 3, 3, LocalDate.parse("2024-03-01"), LocalDate.parse("2024-03-10"), 200.0, false);
 		dataAccess.getRentalList().add(rental);
 		dataAccess.saveRentalList(dataAccess.getRentalList());
-		List<IRental> loadedRentals = dataAccess.loadRentalList();
+		List<IRental> loadedRentals = dataAccess.getRentalList();
 		assertEquals(1, loadedRentals.size());
 		assertEquals(3, loadedRentals.get(0).getCustomerId());
 	}
@@ -59,7 +59,7 @@ class RentalDataAccessTest {
 	void testEmptyRentalList() {
 		dataAccess.getRentalList().clear();
 		dataAccess.saveRentalList(dataAccess.getRentalList());
-		List<IRental> loadedRentals = dataAccess.loadRentalList();
+		List<IRental> loadedRentals = dataAccess.getRentalList();
 		assertTrue(loadedRentals.isEmpty());
 	}
 
