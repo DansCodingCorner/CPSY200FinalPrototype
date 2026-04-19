@@ -1,27 +1,18 @@
 package Business.Reports;
-
-<<<<<<< HEAD
 import java.util.List;
 
 import Business.Customer;
-import Business.Equipment;
 import Business.EquipmentManager;
 import Business.Interfaces.IRental;
 import Business.Reports.Interfaces.ISalesByCustomerReport;
-import Persistence.EquipmentDataAccess;
-import Persistence.IEquipmentDataAccess;
 import Persistence.RentalDataAccess;
-=======
-import Business.Reports.Interfaces.ISalesByCustomerReport;
->>>>>>> ee62980901fc2729db76176d5873b434777997c4
 
 public class SalesByCustomerReport implements ISalesByCustomerReport
 {
 
-<<<<<<< HEAD
 	public String generateReport(Customer customer, RentalDataAccess dataAccess)
 	{
-	    List<IRental> rentals = dataAccess.loadRentalList();
+	    List<IRental> rentals = dataAccess.getRentalList();
 	    EquipmentManager equipmentManager = new EquipmentManager();
 
 	    if (rentals == null || rentals.isEmpty())
@@ -92,12 +83,3 @@ public class SalesByCustomerReport implements ISalesByCustomerReport
         }
 
 	}
-
-=======
-	public String generateReport() 
-	{
-		return null;
-	}
-
-}
->>>>>>> ee62980901fc2729db76176d5873b434777997c4
