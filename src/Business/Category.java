@@ -39,7 +39,10 @@ public class Category implements ICategory {
 	}
 
 
-
+	@Override
+	public String toString() {
+		return "Category [id: " + id + ", name: " + name + "]";
+	}
 	
 	
 }

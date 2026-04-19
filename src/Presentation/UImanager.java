@@ -51,6 +51,10 @@ public class UImanager implements IUIManager
                 System.out.println("Thank you for using the Equipment Rental System. Goodbye!");
                 System.exit(0);
                 break;
+            default:
+                System.out.println("Invalid option. Please try again.");
+                displayMainMenu();
+                break;
         }
     }
 
@@ -495,7 +499,8 @@ public class UImanager implements IUIManager
                     }
                 }
                 int rentalId = rentalManager.createRentalId();
-                Rental newRental = new Rental(rentalId, RentalLocalDate, customer.getId(), equipment.getId(), RentalLocalDate, returnLocalDate, rentalId, false);
+                double cost = rentalManager.calculateCost(RentalLocalDate, returnLocalDate, equipment.getPrice());
+                Rental newRental = new Rental(rentalId, RentalLocalDate, customer.getId(), equipment.getId(), RentalLocalDate, returnLocalDate, cost);
                 rentalManager.addRental(newRental);
                 equipmentManager.updateEquipmentAvailability(equipment.getId(), false);
                 System.out.println("Equipment rented successfully! Rental ID: " + rentalId);
@@ -509,13 +514,9 @@ public class UImanager implements IUIManager
                 IRental rental = rentalManager.getRentalById(rentalId1);
                 if (rental == null) {
                     System.out.println("Rental not found.");
+                    displayRentalMenu();
                     break;
                 }
-                if (rental.isReturned()) {
-                    System.out.println("Equipment has already been returned.");
-                    break;
-                }
-                rental.setReturned(true);
                 rentalManager.updateRental(rental);
                 equipmentManager.updateEquipmentAvailability(rental.getEquipmentId(), true);
                 System.out.println("Equipment returned successfully!");
@@ -579,6 +580,12 @@ public class UImanager implements IUIManager
                 System.out.print("Enter ID: ");
                 int id = userInput.nextInt();
                 userInput.nextLine(); // Consume newline
+
+                if (categoryManager.getCategoryById(id) != null) {
+                    System.out.println("Category ID already exists. Please choose a different ID.");
+                    displayCategoryMenu();
+                    break;
+                }
 
                 System.out.print("Enter Name: ");
                 String name = userInput.nextLine();

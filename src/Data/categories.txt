@@ -3,3 +3,4 @@
 30,Compressor
 40,Generator
 50,Air Tool
+60,Hand Tools

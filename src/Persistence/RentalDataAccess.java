@@ -57,7 +57,7 @@ public class RentalDataAccess implements IRentalDataAccess
             while ((line = br.readLine()) != null) 
             {
             	String[] lineDeconstructed  = line.split(",");
-				if (lineDeconstructed.length != 8) {
+				if (lineDeconstructed.length != 7) {
 					System.out.println("Invalid line format in rentals.txt: " + line);
 					continue;
 				}
@@ -70,8 +70,7 @@ public class RentalDataAccess implements IRentalDataAccess
 						Integer.parseInt(lineDeconstructed[3]), 
 						LocalDate.parse(lineDeconstructed[4]), 
 						LocalDate.parse(lineDeconstructed[5]), 
-						Double.parseDouble(lineDeconstructed[6]),
-						Boolean.parseBoolean(lineDeconstructed[7]));
+						Double.parseDouble(lineDeconstructed[6]));
             		rentalList.add(rentalToAdd);
             	} catch (Exception e) {
             		System.out.println("Error parsing line in rentals.txt: " + line);
@@ -97,7 +96,7 @@ public class RentalDataAccess implements IRentalDataAccess
 	 *@Returns: Void
 	 *Method to save changes to the rentals.txt file.
 	 *Intended to be called fromt the rental
-	 *manager class to update any changes made to the rentaal
+	 *manager class to update any changes made to the rental
 	 *list
 	 */
 	@Override
