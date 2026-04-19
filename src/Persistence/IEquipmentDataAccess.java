@@ -1,12 +1,13 @@
 package Persistence;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import Business.Equipment;
+import Business.Interfaces.IEquipment;
 
 public interface IEquipmentDataAccess 
 {
-	public ArrayList<Equipment> loadEquipmentList();
+	public List<IEquipment> loadEquipmentList();
 	
-	public void saveEquipmentList(ArrayList<Equipment> equipmentList);
+	public void saveEquipmentList(List<IEquipment> equipmentList);
 }

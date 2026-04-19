@@ -1,18 +1,9 @@
 package Presentation;
 
 import java.util.Scanner;
-import Business.Interfaces.IRentalManager;
-import Business.Interfaces.ICustomerManager;
-import Business.Interfaces.IEquipmentManager;
-import Business.Interfaces.ICategoryManager;
-import Business.Interfaces.ICustomer;
-import Business.Interfaces.IEquipment;
-import Business.Interfaces.IRental;
-import Business.Customer;
-import Business.CustomerManager;
-import Business.RentalManager;
-import Business.EquipmentManager;
-import Business.CategoryManager;
+
+import Business.Interfaces.*;
+import Business.*;
 import java.time.LocalDate;
 import Business.Equipment;
 
@@ -208,7 +199,7 @@ public class UImanager implements IUIManager
                 int categoryId = userInput.nextInt();
                 userInput.nextLine(); // Consume newline
 
-                Equipment newEquipment = new Equipment(id, name, categoryId, true, description, price);
+                IEquipment newEquipment = new Equipment(id, name, categoryId, true, description, price);
                 equipmentManager.addEquipment(newEquipment);
                 System.out.println("Equipment added successfully!");
                 break;
@@ -219,7 +210,7 @@ public class UImanager implements IUIManager
             case 3:
                 System.out.print("Enter Name to Search: ");
                 String searchName = userInput.nextLine();
-                Equipment foundEquipment = equipmentManager.searchEquipmentByName(searchName);
+                IEquipment foundEquipment = equipmentManager.searchEquipmentByName(searchName);
                 if (foundEquipment != null) {
                     displayEquipmentDetails(foundEquipment.toString());
                 } else {
@@ -229,14 +220,14 @@ public class UImanager implements IUIManager
             case 4:
                 System.out.println("Available Equipment:");
                 equipmentManager.getAllEquipment().stream()
-                    .filter(Equipment::isAvailable)
+                    .filter(IEquipment::isAvailable)
                     .forEach(equipment -> displayEquipmentDetails(equipment.toString()));
                 break;
             case 5:
                 System.out.print("Enter Equipment ID to Update: ");
                 int updateId = userInput.nextInt();
                 userInput.nextLine(); // Consume newline
-                Equipment existingEquipment = equipmentManager.getEquipmentById(updateId);
+                IEquipment existingEquipment = equipmentManager.getEquipmentById(updateId);
                 if (existingEquipment == null) {
                     System.out.println("Equipment not found.");
                     break;
@@ -259,7 +250,7 @@ public class UImanager implements IUIManager
                 System.out.print("Enter Equipment ID to Remove: ");
                 int removeId = userInput.nextInt();
                 userInput.nextLine(); // Consume newline
-                Equipment equipmentToRemove = equipmentManager.getEquipmentById(removeId);
+                IEquipment equipmentToRemove = equipmentManager.getEquipmentById(removeId);
                 if (equipmentToRemove == null) {
                     System.out.println("Equipment not found.");
                     break;

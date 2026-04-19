@@ -8,10 +8,10 @@ import Business.Reports.ReportsInterface;
 
 class SalesByCustomerReportTest 
 {
-	ReportsInterface scr1;
 	
 	@Test
-	void test() {
+	void test() 
+	{
 		fail("Not yet implemented");
 	}
 

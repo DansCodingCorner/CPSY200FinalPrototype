@@ -2,7 +2,8 @@ package Business;
 
 import Business.Interfaces.IEquipment;
 
-public final class Equipment implements IEquipment {
+public final class Equipment implements IEquipment 
+{
     private int id;
     private String name;
     private int categoryId;
@@ -71,6 +72,12 @@ public final class Equipment implements IEquipment {
     {
     	this.price = newPrice;
     }
+
+	@Override
+	public void setCategoryId(String categoryid) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }
