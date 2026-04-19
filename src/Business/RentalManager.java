@@ -27,6 +27,10 @@ public class RentalManager implements IRentalManager{
     @Override
     public void addRental(IRental rental) {
         List<IRental> rentals = rentalDataAccess.getRentalList();
+
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
         rentals.add(rental);
         rentalDataAccess.saveRentalList(rentals);
 
@@ -34,12 +38,20 @@ public class RentalManager implements IRentalManager{
 
     @Override
     public List<IRental> getAllRentals() {
-        return rentalDataAccess.getRentalList();
+        List<IRental> rentals = rentalDataAccess.getRentalList();
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
+        return rentals;
     }
 
     @Override
     public IRental getRentalById(int id) {
-        for (IRental rental : rentalDataAccess.getRentalList()) {
+        List<IRental> rentals = rentalDataAccess.getRentalList();
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
+        for (IRental rental : rentals) {
             if (rental.getId() == id) {
                 return rental;
             }
@@ -50,6 +62,9 @@ public class RentalManager implements IRentalManager{
     @Override
     public boolean updateRental(IRental updatedRental) {
         List<IRental> rentals = rentalDataAccess.getRentalList();
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
         for (int i = 0; i < rentals.size(); i++) {
             if (rentals.get(i).getId() == updatedRental.getId()) {
                 rentals.set(i, updatedRental);
@@ -63,7 +78,11 @@ public class RentalManager implements IRentalManager{
     @Override
     public List<IRental> getRentalsByCustomerId(int customerId) {
         List<IRental> rentals = new ArrayList<>();
-        for (IRental rental : rentalDataAccess.getRentalList()) {
+        List<IRental> allRentals = rentalDataAccess.getRentalList();
+        if (allRentals == null) {
+            allRentals = new ArrayList<>();
+        }
+        for (IRental rental : allRentals) {
             if (rental.getCustomerId() == customerId) {
                 rentals.add(rental);
             }
@@ -74,7 +93,11 @@ public class RentalManager implements IRentalManager{
     @Override
     public List<IRental> getRentalsByEquipmentId(int equipmentId) {
         List<IRental> rentals = new ArrayList<>();
-        for (IRental rental : rentalDataAccess.getRentalList()) {
+        List<IRental> allRentals = rentalDataAccess.getRentalList();
+        if (allRentals == null) {
+            allRentals = new ArrayList<>();
+        }
+        for (IRental rental : allRentals) {
             if (rental.getEquipmentId() == equipmentId) {
                 rentals.add(rental);
             }
@@ -85,6 +108,9 @@ public class RentalManager implements IRentalManager{
     @Override
     public void deleteRentalById(int id) {
         List<IRental> rentals = rentalDataAccess.getRentalList();
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
         boolean removed = rentals.removeIf(rental -> rental.getId() == id);
         if (removed) {
             rentalDataAccess.saveRentalList(rentals);
@@ -93,12 +119,19 @@ public class RentalManager implements IRentalManager{
 
     @Override
     public void saveRentals() {
-        rentalDataAccess.saveRentalList(rentalDataAccess.getRentalList());
+        List<IRental> rentals = rentalDataAccess.getRentalList();
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
+        rentalDataAccess.saveRentalList(rentals);
     }
 
     @Override
     public void deleteRentalsByCustomerId(int customerId) {
         List<IRental> rentals = rentalDataAccess.getRentalList();
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
         boolean removed = rentals.removeIf(rental -> rental.getCustomerId() == customerId);
         if (removed) {
             rentalDataAccess.saveRentalList(rentals);
@@ -108,6 +141,9 @@ public class RentalManager implements IRentalManager{
     @Override
     public void deleteRentalsByEquipmentId(int equipmentId) {
         List<IRental> rentals = rentalDataAccess.getRentalList();
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
         boolean removed = rentals.removeIf(rental -> rental.getEquipmentId() == equipmentId);
         if (removed) {
             rentalDataAccess.saveRentalList(rentals);
@@ -117,6 +153,9 @@ public class RentalManager implements IRentalManager{
     @Override
     public void deleteAllRentals() {
         List<IRental> rentals = rentalDataAccess.getRentalList();
+        if (rentals == null) {
+            rentals = new ArrayList<>();
+        }
         if (!rentals.isEmpty()) {
             rentals.clear();
             rentalDataAccess.saveRentalList(rentals);
