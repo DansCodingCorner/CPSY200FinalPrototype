@@ -1,6 +1,7 @@
 package Presentation;
 
-public interface IUIManager {
+public interface IUIManager 
+{
     void displayMainMenu();
     void displayCustomerMenu();
     void displayEquipmentMenu();
@@ -11,6 +12,5 @@ public interface IUIManager {
     void displayCustomerDetails(String customerDetails);
     void displayEquipmentDetails(String equipmentDetails);
     void displayRentalDetails(String rentalDetails);
-
-
+    void displayReportsMenu();
 }
