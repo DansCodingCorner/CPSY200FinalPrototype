@@ -2,8 +2,10 @@ package Business;
 
 import java.util.List;
 import Business.Interfaces.IEquipment;
+import Business.Interfaces.IEquipmentManager;
 import Persistence.EquipmentDataAccess;
 import Persistence.IEquipmentDataAccess;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EquipmentManager implements IEquipmentManager
@@ -12,7 +14,7 @@ public class EquipmentManager implements IEquipmentManager
 
     public EquipmentManager() 
     {
-    	IEquipmentDataAccess dataAccess = EquipmentDataAccess.getInstance();
+    	 this.dataAccess = EquipmentDataAccess.getInstance();
     }
 
 
@@ -21,10 +23,12 @@ public class EquipmentManager implements IEquipmentManager
     	List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
     	
         for (IEquipment e : equipmentList) {
-            if (e.getId() == equipmentId) {
+            if (e.getId() == equipmentId) 
+            {
                 return e;
             }
         }
+        
         return null;
     }
     
@@ -89,4 +93,65 @@ public class EquipmentManager implements IEquipmentManager
         System.out.println("Equipment not found.");
         return null;
     }
+
+    @Override
+    public List<IEquipment> getAllEquipment() 
+    {
+        return dataAccess.loadEquipmentList();
+    }
+
+    @Override
+    public Equipment searchEquipmentByName(String name) {
+        for (Equipment equipment : equipmentList) {
+            if (equipment.getName().equalsIgnoreCase(name)) {
+                return equipment;
+            }
+        }
+        System.out.println("Equipment not found.");
+        return null;
+    }
+
+    /**@param none
+     * @return none
+     *Used to display all the equipment that is currently available for rent to the user. Called in the UI manager class when the user selects the option to view available equipment.
+     */
+    @Override
+    public void getAvailableEquipment() {
+            ArrayList<Equipment> availableEquipment = new ArrayList<>();
+            for (Equipment equipment : equipmentList) {
+                if (equipment.isAvailable()) {
+                    availableEquipment.add(equipment);
+                }
+            }
+            if (availableEquipment.isEmpty()) {
+                System.out.println("No equipment is currently available.");
+            } else {
+                System.out.println("Available Equipment:");
+                for (Equipment equipment : availableEquipment) {
+                    System.out.println(equipment);
+                }
+            }
+    }
+
+
+	@Override
+	public void addEquipment(IEquipment equipment) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeEquipment(IEquipment equipment) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateEquipment(IEquipment updatedEquipment) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

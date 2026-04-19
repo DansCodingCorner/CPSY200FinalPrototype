@@ -2,19 +2,20 @@ package Business;
 
 import Business.Interfaces.IEquipment;
 
-public final class Equipment implements IEquipment {
+public final class Equipment implements IEquipment 
+{
     private int id;
     private String name;
-    private String categoryid;
+    private int categoryId;
     private String description;
     private boolean isAvailable;
     private double price;
 
-    public Equipment(int id, String name, String categoryid, boolean isAvailable, String description, double price) 
+    public Equipment(int id, String name, int categoryId, boolean isAvailable, String description, double price) 
     {
         this.id = id;
         this.name = name;
-        this.categoryid = categoryid;
+        this.categoryId = categoryId;
         this.isAvailable = isAvailable;
         this.description = description;
         this.price = price;
@@ -36,12 +37,12 @@ public final class Equipment implements IEquipment {
         this.name = name;
     }
 
-    public String getCategoryId() {
-        return categoryid;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryId(String categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public boolean isAvailable() {
@@ -71,6 +72,12 @@ public final class Equipment implements IEquipment {
     {
     	this.price = newPrice;
     }
+
+	@Override
+	public void setCategoryId(String categoryid) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

@@ -1,12 +1,17 @@
 package Business.Interfaces;
 
 
-import Business.Equipment;
+import java.util.List;
+
+
 public interface IEquipmentManager {
-    public Equipment searchEquipment(int equipmentId);
-    public void addEquipment(Equipment equipment);
-    public void removeEquipment(Equipment equipment);
-    public void updateEquipment(Equipment updatedEquipment);
-    public boolean updateEquipmentAvailability(int equipmentId, boolean isAvailable);
-    public Equipment getEquipmentById(int equipmentId);
+    IEquipment searchEquipment(int equipmentId);
+    void addEquipment(IEquipment equipment);
+    void removeEquipment(IEquipment equipment);
+    void updateEquipment(IEquipment updatedEquipment);
+    boolean updateEquipmentAvailability(int equipmentId, boolean isAvailable);
+    IEquipment getEquipmentById(int equipmentId);
+    List<IEquipment> getAllEquipment();
+    IEquipment searchEquipmentByName(String name);
+    void getAvailableEquipment();
 }
