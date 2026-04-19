@@ -5,7 +5,6 @@ import Business.Interfaces.IEquipment;
 import Business.Interfaces.IEquipmentManager;
 import Persistence.EquipmentDataAccess;
 import Persistence.IEquipmentDataAccess;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EquipmentManager implements IEquipmentManager
@@ -102,9 +101,10 @@ public class EquipmentManager implements IEquipmentManager
 
     @Override
     public Equipment searchEquipmentByName(String name) {
-        for (Equipment equipment : equipmentList) {
+        List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
+        for (IEquipment equipment : equipmentList) {
             if (equipment.getName().equalsIgnoreCase(name)) {
-                return equipment;
+                return (Equipment) equipment;
             }
         }
         System.out.println("Equipment not found.");
@@ -117,10 +117,11 @@ public class EquipmentManager implements IEquipmentManager
      */
     @Override
     public void getAvailableEquipment() {
-            ArrayList<Equipment> availableEquipment = new ArrayList<>();
-            for (Equipment equipment : equipmentList) {
+            List<Equipment> availableEquipment = new ArrayList<>();
+            List<IEquipment> equipmentList = dataAccess.loadEquipmentList();
+            for (IEquipment equipment : equipmentList) {
                 if (equipment.isAvailable()) {
-                    availableEquipment.add(equipment);
+                    availableEquipment.add((Equipment) equipment);
                 }
             }
             if (availableEquipment.isEmpty()) {

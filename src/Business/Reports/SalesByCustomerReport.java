@@ -22,13 +22,12 @@ public class SalesByCustomerReport implements ISalesByCustomerReport
 
 	    StringBuilder report = new StringBuilder();
 
-	    // Fancy Header with Customer Name
 	    report.append("╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
 	    report.append(String.format("║               SALES REPORT FOR: %-76s ║\n",
 	            customer.getFirstName() + " " + customer.getLastName()));
 	    report.append("╠══════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n\n");
 
-	    // Table Header - Better aligned
+	    
 	    report.append("╔══════╤══════════════╤══════════════╤══════════════════════════════╤══════════════╤══════════════╤════════════╗\n");
 	    report.append("║  ID  ║ FIRST NAME   ║ LAST NAME    ║ EQUIPMENT                    ║ RENTAL DATE  ║ RETURN DATE  ║    COST    ║\n");
 	    report.append("╠══════╪══════════════╪══════════════╪══════════════════════════════╪══════════════╪══════════════╪════════════╣\n");
@@ -45,7 +44,6 @@ public class SalesByCustomerReport implements ISalesByCustomerReport
 	            String fullNameLast  = customer.getLastName()  != null ? customer.getLastName()  : "";
 	            String equipmentName = equipmentManager.searchEquipment(rental.getEquipmentId()).getName();
 
-	            // Safe string conversion for dates
 	            String rentalDateStr = rental.getRentalDate() != null ? rental.getRentalDate().toString() : "N/A";
 	            String returnDateStr = rental.getReturnDate() != null ? rental.getReturnDate().toString() : "N/A";
 

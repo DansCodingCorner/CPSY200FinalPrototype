@@ -73,11 +73,7 @@ public final class Equipment implements IEquipment
     	this.price = newPrice;
     }
 
-	@Override
-	public void setCategoryId(String categoryid) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 }
+
+
+

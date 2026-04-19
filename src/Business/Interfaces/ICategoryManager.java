@@ -16,4 +16,8 @@ public interface ICategoryManager
 
 	public boolean removeCategoryById(ICategory categoryToRemove);
 
+	ICategory getCategoryById(int id);
+
+	public ICategory searchCategoryByName(String searchName);
+
 }
