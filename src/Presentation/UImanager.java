@@ -699,7 +699,7 @@ public class UImanager implements IUIManager
 
 	    		break;
 	    	case 3:
-	    		System.out.println("Generate aa report of sales for a given day: ");
+	    		System.out.println("Generate a report of sales for a given day: ");
 	    		
 	    		System.out.println("Enter year (yyyy): ");
 	    		int year = userInput.nextInt();
@@ -709,7 +709,7 @@ public class UImanager implements IUIManager
 	    		int month = userInput.nextInt();
 	    	    userInput.nextLine(); 
 	    	    
-	    		System.out.println("Enter year (dd): ");
+	    		System.out.println("Enter day (dd): ");
 	    		int day = userInput.nextInt();
 	    	    userInput.nextLine(); 
 	    	    
@@ -719,6 +719,7 @@ public class UImanager implements IUIManager
 	    		break;
 	    	case 4:
 	    		displayMainMenu();
+	    		break;
 	    	default :
 	    		System.out.println("Invalid selection. Returning to main menu.");
 	    		displayMainMenu();
