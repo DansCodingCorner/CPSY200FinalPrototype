@@ -2,7 +2,7 @@ package Business.Interfaces;
 
 
 import java.util.List;
-import Business.Equipment;
+
 
 
 public interface IEquipmentManager {

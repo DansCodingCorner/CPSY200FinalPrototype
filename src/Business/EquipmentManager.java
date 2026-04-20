@@ -2,7 +2,6 @@ package Business;
 
 import java.util.List;
 
-import Business.Interfaces.ICustomer;
 import Business.Interfaces.IEquipment;
 import Business.Interfaces.IEquipmentManager;
 import Persistence.EquipmentDataAccess;

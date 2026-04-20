@@ -2,7 +2,6 @@ package Persistence;
 
 import java.util.List;
 
-import Business.Equipment;
 import Business.Interfaces.IEquipment;
 
 public interface IEquipmentDataAccess 
