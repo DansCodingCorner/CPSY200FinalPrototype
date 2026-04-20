@@ -176,7 +176,7 @@ public class RentalManager implements IRentalManager{
     @Override
     public void createRental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double dailyRate) {
         double cost = calculateCost(rentalDate, returnDate, dailyRate);
-        IRental rental = new Rental(id, currentDate, customerId, equipmentId, rentalDate, returnDate, cost, false);
+        IRental rental = new Rental(id, currentDate, customerId, equipmentId, rentalDate, returnDate, cost);
         addRental(rental);
     }
 
@@ -197,6 +197,18 @@ public class RentalManager implements IRentalManager{
     @Override
     public int createRentalId() {
         return nextRentalId++;
+    }
+
+    @Override
+    public int getNextRentalId() {
+        List<IRental> rentals = rentalDataAccess.getRentalList();
+        int maxId = 1000; // Start from 1001
+        for (IRental rental : rentals) {
+            if (rental.getId() > maxId) {
+                maxId = rental.getId();
+            }
+        }
+        return maxId + 1;
     }
 
 }    

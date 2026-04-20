@@ -17,5 +17,6 @@ public interface IRentalManager {
     void createRental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double dailyRate);
     double getOutstandingFeesByCustomerId(int customerId);
     int createRentalId();
+    int getNextRentalId();
     
 }

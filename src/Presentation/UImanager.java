@@ -1,14 +1,13 @@
 package Presentation;
 
-import java.util.List;
 import java.util.Scanner;
 
 import Business.Interfaces.*;
 import Business.Reports.CategoryListReport;
 import Business.Reports.SalesByCustomerReport;
 import Business.Reports.SalesByDateReport;
-import Business.Reports.Interfaces.ISalesByCustomerReport;
 import Business.*;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 
@@ -29,14 +28,16 @@ public class UImanager implements IUIManager
     }
 
     @Override
-    public void displayMainMenu() {
+    public void displayMainMenu() 
+    {
         System.out.println("\n=== Equipment Rental System ===");
         System.out.println("1. Customer Management");
         System.out.println("2. Equipment Management");
         System.out.println("3. Rental Management");
         System.out.println("4. Category Management");
-        System.out.println("5. Exit");
-        System.out.println("6. Generate Reports");
+        System.out.println("5. Generate Reports");
+        System.out.println("6. Exit");
+        
 
 
         System.out.print("\nEnter option: ");
@@ -56,12 +57,13 @@ public class UImanager implements IUIManager
                 displayCategoryMenu();
                 break;
             case 5:
+            	displayReportsMenu();
+            	break;
+            case 6:
                 System.out.println("Thank you for using the Equipment Rental System. Goodbye!");
                 System.exit(0);
                 break;
-            case 6:
-            	displayReportsMenu();
-            	break;
+
             default :
             	System.out.println("Invalid selection. Returning to menu.");
             	displayMainMenu();
@@ -434,6 +436,9 @@ public class UImanager implements IUIManager
             case 1:
 
                 customerManager.getAllCustomers().forEach(customer -> displayCustomerDetails(customer.toString()));
+
+                int rentalId = rentalManager.getNextRentalId();
+                System.out.println("\nAssigning Rental ID: " + rentalId);
                 ICustomer customer;
                 while (true) {
                     System.out.println("\nEnter Customer ID or 0 to cancel: ");
@@ -510,8 +515,8 @@ public class UImanager implements IUIManager
                         System.out.println("Invalid date format. Please use YYYY-MM-DD.");
                     }
                 }
-                int rentalId = rentalManager.createRentalId();
-                Rental newRental = new Rental(rentalId, RentalLocalDate, customer.getId(), equipment.getId(), RentalLocalDate, returnLocalDate, rentalId, false);
+                double cost = rentalManager.calculateCost(RentalLocalDate, returnLocalDate, equipment.getPrice());
+                Rental newRental = new Rental(rentalId, RentalLocalDate, customer.getId(), equipment.getId(), RentalLocalDate, returnLocalDate, cost);
                 rentalManager.addRental(newRental);
                 equipmentManager.updateEquipmentAvailability(equipment.getId(), false);
                 System.out.println("Equipment rented successfully! Rental ID: " + rentalId);
@@ -525,13 +530,9 @@ public class UImanager implements IUIManager
                 IRental rental = rentalManager.getRentalById(rentalId1);
                 if (rental == null) {
                     System.out.println("Rental not found.");
+                    displayRentalMenu();
                     break;
                 }
-                if (rental.isReturned()) {
-                    System.out.println("Equipment has already been returned.");
-                    break;
-                }
-                rental.setReturned(true);
                 rentalManager.updateRental(rental);
                 equipmentManager.updateEquipmentAvailability(rental.getEquipmentId(), true);
                 System.out.println("Equipment returned successfully!");
@@ -595,6 +596,12 @@ public class UImanager implements IUIManager
                 System.out.print("Enter ID: ");
                 int id = userInput.nextInt();
                 userInput.nextLine(); // Consume newline
+
+                if (categoryManager.getCategoryById(id) != null) {
+                    System.out.println("Category ID already exists. Please choose a different ID.");
+                    displayCategoryMenu();
+                    break;
+                }
 
                 System.out.print("Enter Name: ");
                 String name = userInput.nextLine();
@@ -695,8 +702,10 @@ public class UImanager implements IUIManager
 	    		displayMainMenu();
 
 	    		break;
+	
 	    	case 3:
-	    		System.out.println("Generate aa report of sales for a given day: ");
+	    		System.out.println("Generate a report of sales for a given day: ");
+
 	    		
 	    		System.out.println("Enter year (yyyy): ");
 	    		int year = userInput.nextInt();
@@ -706,19 +715,27 @@ public class UImanager implements IUIManager
 	    		int month = userInput.nextInt();
 	    	    userInput.nextLine(); 
 	    	    
-	    		System.out.println("Enter year (dd): ");
+
+	    		System.out.println("Enter day (dd): ");
 	    		int day = userInput.nextInt();
 	    	    userInput.nextLine(); 
 	    	    
-	    	    LocalDate date = LocalDate.of(year, month, day);
-
-	    		System.out.println(salesByDateReport.generateReport(date));
+	    	    try {
+	    	    	LocalDate date = LocalDate.of(year, month, day);
+		    		System.out.println(salesByDateReport.generateReport(date));
+	    	    } catch (DateTimeException e) {
+	    	    	System.out.println("Invalid date entered.");
+	    	    }
+	    	    
 	    		break;
 	    	case 4:
 	    		displayMainMenu();
+
+
 	    	default :
-	    		System.out.println("Invalid selection. Returning to main menu.");
-	    		displayMainMenu();
+	    		System.out.println("Invalid selection. Returning to reports menu.");
+	    		displayReportsMenu();
+                break;
 	    }
 	
     }

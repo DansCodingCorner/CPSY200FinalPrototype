@@ -1,7 +1,7 @@
 package Business.Reports;
 import java.util.List;
 
-import Business.Customer;
+
 import Business.EquipmentManager;
 import Business.Interfaces.ICustomer;
 import Business.Interfaces.IRental;

@@ -3,7 +3,8 @@ package Business;
 import Business.Interfaces.ICategory;
 
 
-public class Category implements ICategory {
+public class Category implements ICategory 
+{
 	private int id;
 	private String name;
 
@@ -39,7 +40,10 @@ public class Category implements ICategory {
 	}
 
 
-
+	@Override
+	public String toString() {
+		return "Category [id: " + id + ", name: " + name + "]";
+	}
 	
 	
 }

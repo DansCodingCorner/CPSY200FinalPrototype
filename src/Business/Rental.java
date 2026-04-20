@@ -13,9 +13,8 @@ public class Rental implements IRental
 	private LocalDate rentalDate;
 	private LocalDate returnDate;
 	private double cost;
-	private boolean isReturned;
 	
-	public Rental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double cost, boolean isReturned)
+	public Rental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double cost)
 	{
 
 		if (id < 0 || customerId < 0 || equipmentId < 0 || cost < 0) {
@@ -30,9 +29,7 @@ public class Rental implements IRental
 			throw new IllegalArgumentException("Rental date cannot be after return date.");
 		}
 
-		if (!isReturned && returnDate.isBefore(currentDate)) {
-			throw new IllegalArgumentException("Return date cannot be before current date for an active rental.");
-		}
+
 		this.id = id;
 		this.currentDate = currentDate;
 		this.customerId = customerId;
@@ -40,7 +37,7 @@ public class Rental implements IRental
 		this.rentalDate = rentalDate;
 		this.returnDate = returnDate;
 		this.cost = cost;
-		this.isReturned = isReturned;
+		
 	}
 
 
@@ -129,9 +126,8 @@ public class Rental implements IRental
 	
 	@Override
 	public String toString() {
-		return "Rental [id=" + id + ", currentDate=" + currentDate + ", customerId=" + customerId + ", equipmentId="
-				+ equipmentId + ", rentalDate=" + rentalDate + ", returnDate=" + returnDate + ", cost=" + cost
-				+ ", isReturned=" + isReturned + "]";
+		return String.format("Rental ID: %d, Customer ID: %d, Equipment ID: %d, Rental Date: %s, Return Date: %s, Cost: $%.2f",
+				id, customerId, equipmentId, rentalDate.toString(), returnDate.toString(), cost);
 	}
 
 	@Override
@@ -144,14 +140,6 @@ public class Rental implements IRental
 		setReturnDate(LocalDate.parse(returnDate));
 	}
 
-	@Override
-	public boolean isReturned() {
-		return isReturned;
-	}
 
-	@Override
-	public void setReturned(boolean returned) {
-		this.isReturned = returned;
-	}
 
 }

@@ -3,3 +3,4 @@
 1003,Michael,Lee,ml@sample.net,(555) 555-5656,false,0.0
 1004,James,Nortan,jn@sample.net,555-123-4321,false,0.0
 1005,Mike,Street,ms@sample.net,(555) 555-9876,false,0.0
+1006,Evgeny,Kutepov,ek@sample.net,(555) 555-9843,false,0.0
