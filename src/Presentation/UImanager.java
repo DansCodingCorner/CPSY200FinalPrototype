@@ -34,8 +34,9 @@ public class UImanager implements IUIManager
         System.out.println("2. Equipment Management");
         System.out.println("3. Rental Management");
         System.out.println("4. Category Management");
-        System.out.println("5. Exit");
-        System.out.println("6. Generate Reports");
+        System.out.println("5. Generate Reports");
+        System.out.println("6. Exit");
+        
 
 
         System.out.print("\nEnter option: ");
@@ -55,12 +56,12 @@ public class UImanager implements IUIManager
                 displayCategoryMenu();
                 break;
             case 5:
+            	displayReportsMenu();
+            	break;
+            case 6:
                 System.out.println("Thank you for using the Equipment Rental System. Goodbye!");
                 System.exit(0);
                 break;
-            case 6:
-            	displayReportsMenu();
-            	break;
             default :
             	System.out.println("Invalid selection. Returning to menu.");
             	displayMainMenu();
@@ -683,7 +684,7 @@ public class UImanager implements IUIManager
 	    		System.out.println("Generating list of current Categories...");
 	    		System.out.println(categoriesReport.generateReport());
 	    		
-	    		displayMainMenu();
+	    		displayReportsMenu();
 	    		break;
 	    	case 2:
 	    		System.out.println("Enter customer ID to search: ");
@@ -693,13 +694,13 @@ public class UImanager implements IUIManager
 	    	    ICustomer customer = customerManager.getCustomerById(customerId);
 	    	    if (customer == null) {
 	    	    	System.out.println("Customer not found.");
-	    	    	displayMainMenu();
+	    	    	displayReportsMenu();
 	    	    	break;
 	    	    }
 	    	    
 	    	    System.out.println(salesByCustomerReport.generateReport(customer));
 	    	    
-	    		displayMainMenu();
+	    		displayReportsMenu();
 
 	    		break;
 	    	case 3:
@@ -723,14 +724,16 @@ public class UImanager implements IUIManager
 	    	    } catch (DateTimeException e) {
 	    	    	System.out.println("Invalid date entered.");
 	    	    }
-	    		displayMainMenu();
+	    		displayReportsMenu();
 	    		break;
 	    	case 4:
+                System.out.println("Returning to main menu...");
 	    		displayMainMenu();
 	    		break;
 	    	default :
-	    		System.out.println("Invalid selection. Returning to main menu.");
-	    		displayMainMenu();
+	    		System.out.println("Invalid selection. Returning to reports menu.");
+	    		displayReportsMenu();
+                break;
 	    }
 	
     }
