@@ -1,13 +1,11 @@
 package Presentation;
 
-import java.util.List;
 import java.util.Scanner;
 
 import Business.Interfaces.*;
 import Business.Reports.CategoryListReport;
 import Business.Reports.SalesByCustomerReport;
 import Business.Reports.SalesByDateReport;
-import Business.Reports.Interfaces.ISalesByCustomerReport;
 import Business.*;
 import java.time.LocalDate;
 
@@ -716,6 +714,7 @@ public class UImanager implements IUIManager
 	    	    LocalDate date = LocalDate.of(year, month, day);
 
 	    		System.out.println(salesByDateReport.generateReport(date));
+	    		displayMainMenu();
 	    		break;
 	    	case 4:
 	    		displayMainMenu();
