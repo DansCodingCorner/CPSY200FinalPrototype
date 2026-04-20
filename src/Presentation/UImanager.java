@@ -7,6 +7,7 @@ import Business.Reports.CategoryListReport;
 import Business.Reports.SalesByCustomerReport;
 import Business.Reports.SalesByDateReport;
 import Business.*;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 
@@ -690,6 +691,11 @@ public class UImanager implements IUIManager
 	    	    userInput.nextLine(); 
 	    	    
 	    	    ICustomer customer = customerManager.getCustomerById(customerId);
+	    	    if (customer == null) {
+	    	    	System.out.println("Customer not found.");
+	    	    	displayMainMenu();
+	    	    	break;
+	    	    }
 	    	    
 	    	    System.out.println(salesByCustomerReport.generateReport(customer));
 	    	    
@@ -711,9 +717,12 @@ public class UImanager implements IUIManager
 	    		int day = userInput.nextInt();
 	    	    userInput.nextLine(); 
 	    	    
-	    	    LocalDate date = LocalDate.of(year, month, day);
-
-	    		System.out.println(salesByDateReport.generateReport(date));
+	    	    try {
+	    	    	LocalDate date = LocalDate.of(year, month, day);
+		    		System.out.println(salesByDateReport.generateReport(date));
+	    	    } catch (DateTimeException e) {
+	    	    	System.out.println("Invalid date entered.");
+	    	    }
 	    		displayMainMenu();
 	    		break;
 	    	case 4:
