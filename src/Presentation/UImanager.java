@@ -28,7 +28,8 @@ public class UImanager implements IUIManager
     }
 
     @Override
-    public void displayMainMenu() {
+    public void displayMainMenu() 
+    {
         System.out.println("\n=== Equipment Rental System ===");
         System.out.println("1. Customer Management");
         System.out.println("2. Equipment Management");
@@ -62,6 +63,7 @@ public class UImanager implements IUIManager
                 System.out.println("Thank you for using the Equipment Rental System. Goodbye!");
                 System.exit(0);
                 break;
+
             default :
             	System.out.println("Invalid selection. Returning to menu.");
             	displayMainMenu();
@@ -686,7 +688,7 @@ public class UImanager implements IUIManager
 	    		System.out.println("Generating list of current Categories...");
 	    		System.out.println(categoriesReport.generateReport());
 	    		
-	    		displayReportsMenu();
+	    		displayMainMenu();
 	    		break;
 	    	case 2:
 	    		System.out.println("Enter customer ID to search: ");
@@ -694,19 +696,16 @@ public class UImanager implements IUIManager
 	    	    userInput.nextLine(); 
 	    	    
 	    	    ICustomer customer = customerManager.getCustomerById(customerId);
-	    	    if (customer == null) {
-	    	    	System.out.println("Customer not found.");
-	    	    	displayReportsMenu();
-	    	    	break;
-	    	    }
 	    	    
 	    	    System.out.println(salesByCustomerReport.generateReport(customer));
 	    	    
-	    		displayReportsMenu();
+	    		displayMainMenu();
 
 	    		break;
+	
 	    	case 3:
 	    		System.out.println("Generate a report of sales for a given day: ");
+
 	    		
 	    		System.out.println("Enter year (yyyy): ");
 	    		int year = userInput.nextInt();
@@ -716,6 +715,7 @@ public class UImanager implements IUIManager
 	    		int month = userInput.nextInt();
 	    	    userInput.nextLine(); 
 	    	    
+
 	    		System.out.println("Enter day (dd): ");
 	    		int day = userInput.nextInt();
 	    	    userInput.nextLine(); 
@@ -726,12 +726,12 @@ public class UImanager implements IUIManager
 	    	    } catch (DateTimeException e) {
 	    	    	System.out.println("Invalid date entered.");
 	    	    }
-	    		displayReportsMenu();
+	    	    
 	    		break;
 	    	case 4:
-                System.out.println("Returning to main menu...");
 	    		displayMainMenu();
-	    		break;
+
+
 	    	default :
 	    		System.out.println("Invalid selection. Returning to reports menu.");
 	    		displayReportsMenu();

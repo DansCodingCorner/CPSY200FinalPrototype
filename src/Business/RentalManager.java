@@ -6,7 +6,6 @@ package Business;
 import Business.Interfaces.IRentalManager;
 import Persistence.IRentalDataAccess;
 import Persistence.RentalDataAccess;
-import Business.Interfaces.ICustomer;
 import Business.Interfaces.IRental;
 
 import java.time.LocalDate;
