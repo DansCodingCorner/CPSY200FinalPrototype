@@ -4,3 +4,4 @@
 301,Small Compressor,30,true,5 Gallon Compressor-Portable,14.99
 401,Shavol,20,true,Hand Shoval for gardening,5.99
 501,Brad Nailer,50,true,Brad Nailer. Requires 3/4 to 1 1/2 Brad Nails,10.99
+601,Drill,10,true,Hand Drill,12.99
