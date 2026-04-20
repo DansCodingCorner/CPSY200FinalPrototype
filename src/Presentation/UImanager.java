@@ -434,6 +434,9 @@ public class UImanager implements IUIManager
             case 1:
 
                 customerManager.getAllCustomers().forEach(customer -> displayCustomerDetails(customer.toString()));
+
+                int rentalId = rentalManager.getNextRentalId();
+                System.out.println("\nAssigning Rental ID: " + rentalId);
                 ICustomer customer;
                 while (true) {
                     System.out.println("\nEnter Customer ID or 0 to cancel: ");
@@ -510,7 +513,6 @@ public class UImanager implements IUIManager
                         System.out.println("Invalid date format. Please use YYYY-MM-DD.");
                     }
                 }
-                int rentalId = rentalManager.createRentalId();
                 double cost = rentalManager.calculateCost(RentalLocalDate, returnLocalDate, equipment.getPrice());
                 Rental newRental = new Rental(rentalId, RentalLocalDate, customer.getId(), equipment.getId(), RentalLocalDate, returnLocalDate, cost);
                 rentalManager.addRental(newRental);

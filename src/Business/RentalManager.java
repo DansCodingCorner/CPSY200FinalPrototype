@@ -6,6 +6,7 @@ package Business;
 import Business.Interfaces.IRentalManager;
 import Persistence.IRentalDataAccess;
 import Persistence.RentalDataAccess;
+import Business.Interfaces.ICustomer;
 import Business.Interfaces.IRental;
 
 import java.time.LocalDate;
@@ -197,6 +198,18 @@ public class RentalManager implements IRentalManager{
     @Override
     public int createRentalId() {
         return nextRentalId++;
+    }
+
+    @Override
+    public int getNextRentalId() {
+        List<IRental> rentals = rentalDataAccess.getRentalList();
+        int maxId = 1000; // Start from 1001
+        for (IRental rental : rentals) {
+            if (rental.getId() > maxId) {
+                maxId = rental.getId();
+            }
+        }
+        return maxId + 1;
     }
 
 }    
