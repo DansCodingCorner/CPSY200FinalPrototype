@@ -176,7 +176,7 @@ public class RentalManager implements IRentalManager{
     @Override
     public void createRental(int id, LocalDate currentDate, int customerId, int equipmentId, LocalDate rentalDate, LocalDate returnDate, double dailyRate) {
         double cost = calculateCost(rentalDate, returnDate, dailyRate);
-        IRental rental = new Rental(id, currentDate, customerId, equipmentId, rentalDate, returnDate, cost, false);
+        IRental rental = new Rental(id, currentDate, customerId, equipmentId, rentalDate, returnDate, cost);
         addRental(rental);
     }
 
