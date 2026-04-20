@@ -7,8 +7,9 @@ public final class Equipment {
     private String description;
     private boolean isAvailable;
     private double price;
+	private Object equipmentid;
 
-    public Equipment(int id, String name, String categoryid, boolean isAvailable, String description, double price) 
+    public Equipment(int id, String name, String categoryid, boolean isAvailable, String description, double price, Object equipmentid) 
     {
         this.id = id;
         this.name = name;
@@ -16,6 +17,7 @@ public final class Equipment {
         this.isAvailable = isAvailable;
         this.description = description;
         this.price = price;
+        this.equipmentid = equipmentid;
     }
 
     public int getId() {
@@ -73,3 +75,10 @@ public final class Equipment {
 	public int getEquipmentId() {
 		return this.id;
 }
+
+	public void setEquipmentId(int i, Object equipmentid) {
+		
+		this.equipmentid = equipmentid;
+		
+	}
+}	

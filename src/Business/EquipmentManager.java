@@ -1,8 +1,11 @@
 package Business;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class EquipmentManager {
+import Business.Interfaces.IEquipmentManager;
+
+public class EquipmentManager implements IEquipmentManager{
     private ArrayList<Equipment> equipmentList;
 
     public EquipmentManager() {
@@ -17,7 +20,7 @@ public class EquipmentManager {
         }
         return null;
     }
-    public ArrayList<Equipment> loadEquipmentList() {
+    public List<Equipment> loadEquipmentList() {
         return equipmentList;
     }
 
